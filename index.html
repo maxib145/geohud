@@ -174,6 +174,7 @@ details > div{padding:0 14px 12px}
 .chip{text-align:left;padding:11px 13px;border-radius:10px;border:1px dashed var(--line);background:var(--bg2);cursor:pointer;font-size:14px}
 .chip.picked{border-style:solid;border-color:var(--blue);background:rgba(59,130,246,.1)}
 .chip .k{font-family:var(--hud);color:var(--cyan);margin-right:8px;font-size:12px}
+.chip.mono{font-family:var(--mono);font-size:13.5px;white-space:pre;overflow-x:auto;background:#0a1020}
 .feedback{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:14px;display:none}
 .feedback.show{display:block;animation:pop .3s}
 .feedback.ok{border:1px solid var(--ok);background:rgba(46,229,157,.08)}
@@ -488,8 +489,9 @@ function answerBug(b, ev){ const c = MV.mis.checks[MV.ci], ok = +b.dataset.i ===
   b.classList.add(ok?"ok":"bad"); if(!ok) b.disabled=true; result(ok, ev); }
 function drawOrder(){
   const c = MV.mis.checks[MV.ci], O = MV.order;
-  $("#osel").innerHTML = O.sel.map((i,k)=>`<button class="chip picked" onclick="orderPop(${k})"><span class="k">${k+1}</span>${c.steps[i]}</button>`).join("");
-  $("#opool").innerHTML = O.pool.filter(i=>!O.sel.includes(i)).map(i=>`<button class="chip" onclick="orderPick(${i})">${c.steps[i]}</button>`).join("");
+  const txt = i => c.mono ? esc(c.steps[i]) : c.steps[i], mc = c.mono ? " mono" : "";
+  $("#osel").innerHTML = O.sel.map((i,k)=>`<button class="chip picked${mc}" onclick="orderPop(${k})"><span class="k">${k+1}</span>${txt(i)}</button>`).join("");
+  $("#opool").innerHTML = O.pool.filter(i=>!O.sel.includes(i)).map(i=>`<button class="chip${mc}" onclick="orderPick(${i})">${txt(i)}</button>`).join("");
   $("#ocheck").disabled = O.sel.length !== c.steps.length;
   enhance($("#pnl"));
 }
@@ -497,11 +499,11 @@ function orderPick(i){ MV.order.sel.push(i); drawOrder(); }
 function orderPop(k){ MV.order.sel.splice(k,1); drawOrder(); }
 function orderReset(){ MV.order.sel=[]; drawOrder(); $("#fb").className="feedback"; }
 function answerOrder(ev){
-  const ok = MV.order.sel.every((v,i)=>v===i);
-  document.querySelectorAll("#osel .chip").forEach((el,k)=>el.classList.add(MV.order.sel[k]===k?"ok":"bad"));
-  document.querySelectorAll("#osel .chip").forEach((el,k)=>{ el.style.borderColor = MV.order.sel[k]===k ? "var(--ok)" : "var(--bad)"; });
+  const c = MV.mis.checks[MV.ci];
+  const ok = MV.order.sel.every((v,i)=>c.steps[v]===c.steps[i]);
+  document.querySelectorAll("#osel .chip").forEach((el,k)=>{ el.style.borderColor = c.steps[MV.order.sel[k]]===c.steps[k] ? "var(--ok)" : "var(--bad)"; });
   result(ok, ev);
-  if(!ok) setTimeout(()=>{ if(MV && MV.order){ MV.order.sel = MV.order.sel.filter((v,i)=>v===i); drawOrder(); } }, 900);
+  if(!ok) setTimeout(()=>{ if(MV && MV.order){ const keep=[]; for(let i=0;i<MV.order.sel.length;i++){ if(c.steps[MV.order.sel[i]]===c.steps[i]) keep.push(MV.order.sel[i]); else break; } MV.order.sel = keep; drawOrder(); } }, 900);
 }
 function nextCheck(){ MV.ci++; renderCheck(); scrollTo({top:0}); }
 function renderVictory(){

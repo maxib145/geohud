@@ -2,7 +2,7 @@
    Eigene Dateien: network-first (Updates von studyData.js kommen sofort an, offline gibt's den Cache).
    CDN (KaTeX, highlight.js, Fonts): cache-first.
    Bei größeren Änderungen VERSION hochzählen. */
-const VERSION = "geohud-v3";
+const VERSION = "geohud-v4";
 const SHELL = ["./", "index.html", "studyData.js", "manifest.webmanifest",
   "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 

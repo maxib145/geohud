@@ -24,7 +24,7 @@
 const R = String.raw;
 
 window.STUDY_DATA = {
-  version: "2026-11-26.4",
+  version: "2026-11-26.5",
 
   levels: [
     { xp: 0,    name: "Kadett" },
@@ -666,6 +666,7 @@ window.STUDY_DATA = {
           missions: [
             {
               id: "oop-01-ausgabe-orakel",
+              exam: "Klausur 2024 A1",
               title: "Ausgabe-Orakel: Typen, Tupel, range & Slicing",
               minutes: 5,
               xp: 120,
@@ -741,6 +742,354 @@ print(a)       # -> [1, 2, 3]`, lang: "python" }
                 "GoodNotes: 2. Semester/OOP/Folien Motzek – slides_12–14 (gesichtet für Mission 2: Klassen)",
                 "E-Learning: Kurs 33117 – Skript Motzek, Folien, Übungsblätter 01–13 + Lösungen"
               ]
+            },
+            /* ================= LETZTE KLAUSUR (schwer) ================= */
+            {
+              id: "oop-02-minmax",
+              exam: "Letzte Klausur A2 · 20 P.",
+              title: "MinMax: Typprüfung + Minimum/Maximum selbst bauen",
+              minutes: 6, xp: 130,
+              tldr: R`Die 20-Punkte-Aufgabe. Zwei Teile: <b>1. Türsteher</b>, der prüft, ob L eine nicht-leere Liste ist und nur int/float enthält. <b>2. Scout</b>, der einmal durch die Liste läuft und sich den kleinsten und größten Wert merkt. „Innerhalb der Funktion bestimmen“ heißt: <b>nicht</b> einfach <code>min()</code> und <code>max()</code> benutzen.`,
+              core: [
+                { h: "Musterlösung (getestet)" },
+                { code: `def MinMax(L):
+    if type(L) == list and L != []:
+        for e in L:
+            if type(e) != int and type(e) != float:
+                return None          # ungültiger Eintrag
+        Min = L[0]
+        Max = L[0]
+        for e in L:
+            if e < Min:
+                Min = e
+            if e > Max:
+                Max = e
+        return (Min, Max)
+    return None                      # keine / leere Liste`, lang: "python" },
+                { table: { head: ["Aufruf", "Ergebnis"], rows: [
+                  ["<code>MinMax([3, -2.5, 7, 0])</code>", "<code>(-2.5, 7)</code>"],
+                  ["<code>MinMax([5])</code>", "<code>(5, 5)</code>"],
+                  ["<code>MinMax([])</code>", "<code>None</code>"],
+                  ["<code>MinMax((1, 2))</code>", "<code>None</code> (Tupel, keine Liste)"],
+                  ["<code>MinMax([1, 'a'])</code>", "<code>None</code>"]
+                ]}},
+                { note: R`Start mit <code>Min = Max = L[0]</code>, nicht mit 0! Bei <code>[3, 5]</code> würde Min = 0 sonst falsch bleiben.` }
+              ],
+              tips: [
+                { title: "type() vs. isinstance()", body: R`<code>isinstance(True, int)</code> ist <code>True</code>, weil bool ein Untertyp von int ist. <code>type(e) == int</code> lässt True/False nicht durch. Beides ist in der Klausur vertretbar, aber <code>type()</code> passt genau zu „vom Typ int oder float“.` },
+                { title: "Kurze Typprüfung mit in", body: R`<code>if type(e) not in (int, float):</code> ist gleichwertig und spart Schreibarbeit.` }
+              ],
+              traps: [
+                { title: "Falle: L == [] zu spät prüfen", body: R`Erst prüfen, dann <code>L[0]</code> lesen. Bei der leeren Liste gibt es sonst einen IndexError.` },
+                { title: "Falle: return im falschen Block", body: R`Ein <code>return (Min, Max)</code> innerhalb der Schleife beendet die Funktion schon nach dem ersten Element.` },
+                { title: "Falle: and/or vertauscht", body: R`Ungültig ist ein Eintrag, wenn er weder int <b>noch</b> float ist: <code>type(e) != int <b>and</b> type(e) != float</code>. Mit <code>or</code> wäre jeder Eintrag ungültig.` }
+              ],
+              checks: [
+                { type: "mc", q: "Was liefert die Musterlösung?", code: "MinMax([4, 9.5, -1, 9.5])", options: ["(-1, 9.5)", "(4, 9.5)", "None", "(-1, 4)"], answer: 0, explain: "Kleinster Eintrag −1, größter 9.5. Doppelte Werte stören nicht." },
+                { type: "mc", q: "Was liefert die Musterlösung?", code: "MinMax((1, 2, 3))", options: ["(1, 3)", "None", "TypeError", "(3, 1)"], answer: 1, explain: "Ein Tupel ist keine Liste → type(L) == list ist False → None." },
+                { type: "bug", q: "Finde den Bug:", lines: ["def MinMax(L):", "    if type(L) == list and L != []:", "        Min = 0", "        Max = 0", "        for e in L:", "            if e < Min: Min = e", "            if e > Max: Max = e", "        return (Min, Max)"], answer: 2, explain: "Mit Min = 0 liefert MinMax([3, 5]) als Minimum 0 statt 3. Richtig: Min = L[0] (genauso Max = L[0], Zeile 4 ist der gleiche Fehler)." },
+                { type: "bug", q: "Diese Typprüfung lehnt JEDE Liste ab. Welche Zeile ist schuld?", lines: ["for e in L:", "    if type(e) != int or type(e) != float:", "        return None"], answer: 1, explain: "Mit or ist die Bedingung immer wahr (ein int ist nie gleichzeitig float). Richtig ist and." },
+                { type: "order", mono: true, q: "Baue die Min/Max-Schleife zusammen (Einrückung zählt!):", steps: ["Min = L[0]", "Max = L[0]", "for e in L:", "    if e < Min:", "        Min = e", "    if e > Max:", "        Max = e", "return (Min, Max)"], explain: "Startwerte aus L[0], dann eine Schleife mit zwei if-Abfragen, return erst nach der Schleife." }
+              ],
+              sources: ["Foto: OOP-Klausur letzter Termin, Seite 2 (Aufgabe 2, 20 P.)", "Musterlösung selbst programmiert und mit 6 Testfällen geprüft"]
+            },
+            {
+              id: "oop-03-alle-verschieden",
+              exam: "Letzte Klausur A3 · 15 P.",
+              title: "alle_verschieden: Liste/Tupel auf Duplikate prüfen",
+              minutes: 5, xp: 120,
+              tldr: R`Boolesche Funktion = gibt <code>True</code> oder <code>False</code> zurück. Erst prüfen, ob LoT eine Liste oder ein Tupel ist, dann jedes Element mit jedem <b>späteren</b> vergleichen. Wie bei der Kaderplanung: Keine Rückennummer darf doppelt vergeben sein. Leere Liste und ein einziger Eintrag → <code>True</code>.`,
+              core: [
+                { h: "Musterlösung (getestet)" },
+                { code: `def alle_verschieden(LoT):
+    if type(LoT) == list or type(LoT) == tuple:
+        for i in range(len(LoT)):
+            for j in range(i + 1, len(LoT)):
+                if LoT[i] == LoT[j]:
+                    return False
+        return True`, lang: "python" },
+                { p: R`Leer oder ein Element: Die innere Schleife läuft nie, also wird direkt <code>True</code> zurückgegeben, genau wie gefordert.` },
+                { table: { head: ["Aufruf", "Ergebnis"], rows: [
+                  ["<code>alle_verschieden([1, 2, 3])</code>", "<code>True</code>"],
+                  ["<code>alle_verschieden((1, 2, 1))</code>", "<code>False</code>"],
+                  ["<code>alle_verschieden([])</code>", "<code>True</code>"],
+                  ["<code>alle_verschieden([[1], [2], [1]])</code>", "<code>False</code>"]
+                ]}},
+                { h: "Kurzvariante mit set" },
+                { code: `return len(set(LoT)) == len(LoT)`, lang: "python" },
+                { note: R`Die set-Variante <b>stürzt ab</b>, wenn LoT Listen enthält: <code>set([[1], [2]])</code> → <code>TypeError: unhashable type: 'list'</code>. Die Doppelschleife funktioniert immer.` }
+              ],
+              tips: [ { title: "Warum j bei i + 1 startet", body: R`So wird jedes Paar nur einmal verglichen, und ein Element nie mit sich selbst. Mit <code>range(len(LoT))</code> für j wäre <code>LoT[i] == LoT[i]</code> immer True → falsches False.` } ],
+              traps: [
+                { title: "Falle: return True in der Schleife", body: R`<code>return True</code> gehört <b>hinter</b> beide Schleifen. Sonst ist die Funktion nach dem ersten ungleichen Paar fertig.` },
+                { title: "Falle: Typprüfung vergessen", body: R`Die Aufgabe sagt „zuerst prüft, ob LoT eine Liste oder ein Tupel ist“. Ohne diese Zeile fehlen Punkte, auch wenn der Rest stimmt.` }
+              ],
+              checks: [
+                { type: "mc", q: "Was liefert die Musterlösung?", code: "alle_verschieden(('a',))", options: ["True", "False", "None", "IndexError"], answer: 0, explain: "Ein einziger Eintrag → keine Vergleiche → True." },
+                { type: "mc", q: "Was liefert die Musterlösung?", code: "alle_verschieden('Anna')", options: ["True", "False", "None", "TypeError"], answer: 2, explain: "Ein String ist weder list noch tuple → die if-Bedingung ist False → die Funktion endet ohne return → None." },
+                { type: "mc", q: "Was passiert bei der set-Variante?", code: "len(set([[1], [2]])) == 2", options: ["True", "False", "TypeError: unhashable type: 'list'", "None"], answer: 2, explain: "Listen sind veränderbar und damit nicht hashbar, also nicht in Sets erlaubt." },
+                { type: "bug", q: "Diese Version gibt für [1, 2, 3] fälschlich False zurück. Warum?", lines: ["def alle_verschieden(LoT):", "    if type(LoT) == list or type(LoT) == tuple:", "        for i in range(len(LoT)):", "            for j in range(len(LoT)):", "                if LoT[i] == LoT[j]:", "                    return False", "        return True"], answer: 3, explain: "j startet bei 0 → bei i == j wird ein Element mit sich selbst verglichen. Richtig: range(i + 1, len(LoT))." },
+                { type: "order", mono: true, q: "Setze die Funktion zusammen:", steps: ["def alle_verschieden(LoT):", "    if type(LoT) == list or type(LoT) == tuple:", "        for i in range(len(LoT)):", "            for j in range(i + 1, len(LoT)):", "                if LoT[i] == LoT[j]:", "                    return False", "        return True"], explain: "Typprüfung → Doppelschleife → return False beim ersten Duplikat → return True nach den Schleifen." }
+              ],
+              sources: ["Foto: OOP-Klausur letzter Termin, Seite 2 (Aufgabe 3, 15 P.)", "Musterlösung getestet (inkl. set-Falle mit Listen)"]
+            },
+            {
+              id: "oop-04-rekursion",
+              exam: "Letzte Klausur A4 · 16 P.",
+              title: "Rekursion: Sternsche Zahlenfolge",
+              minutes: 5, xp: 130,
+              tldr: R`Rekursion = eine Funktion ruft sich selbst auf, wie Spiegel in Spiegeln, bis man bei den Anfangswerten ankommt. Du übersetzt die Formeln 1:1 in Python: <b>Abbruch</b> bei n = 0 und n = 1, sonst gerade/ungerade unterscheiden. Der Hinweis in der Aufgabe sagt schon alles: Für gerades n ist m = n // 2, für ungerades ebenso m = n // 2, und dazu m + 1.`,
+              core: [
+                { p: R`$S_0 = 0$, $S_1 = 1$, $S_{2m} = S_m$, $S_{2m+1} = S_m + S_{m+1}$` },
+                { h: "Musterlösung (getestet)" },
+                { code: `def S(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    if n % 2 == 0:          # n = 2m  ->  m = n // 2
+        return S(n // 2)
+    else:                   # n = 2m+1 -> m = n // 2
+        m = n // 2
+        return S(m) + S(m + 1)`, lang: "python" },
+                { table: { head: ["n", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], rows: [
+                  ["Sₙ", "0", "1", "1", "2", "1", "3", "2", "3", "1", "4", "3"]
+                ]}},
+                { h: "Beispiel per Hand: S(5)" },
+                { p: R`5 ist ungerade → m = 2 → S(2) + S(3). S(2) = S(1) = 1. S(3): m = 1 → S(1) + S(2) = 1 + 1 = 2. Also S(5) = 1 + 2 = <b>3</b>.` }
+              ],
+              tips: [ { title: "// statt /", body: R`<code>n // 2</code> liefert eine Ganzzahl. Im ungeraden Fall wäre <code>m = n / 2</code> z. B. 2.5, und S(2.5) kommt nie bei 0 oder 1 an → <b>RecursionError</b> (getestet). Im geraden Zweig ginge / zufällig gut (6 / 2 = 3.0), sauber ist trotzdem überall //.` } ],
+              traps: [
+                { title: "Falle: Abbruchbedingungen fehlen", body: R`Ohne <code>if n == 0</code> / <code>if n == 1</code> ruft sich die Funktion endlos auf. Bei S(1) wäre m = 0 und m + 1 = 1 → S(1) ruft S(1) auf.` },
+                { title: "Falle: Schleife statt Rekursion", body: R`Gefordert ist eine <b>rekursive</b> Funktion. Eine Lösung mit Liste und for-Schleife wäre korrekt, bekommt aber nicht die vollen Punkte.` }
+              ],
+              checks: [
+                { type: "mc", q: "Welchen Wert hat S(6)?", options: ["1", "2", "3", "6"], answer: 1, explain: "6 gerade → S(3) = S(1) + S(2) = 1 + 1 = 2." },
+                { type: "mc", q: "Welchen Wert hat S(11)?", options: ["3", "4", "5", "6"], answer: 2, explain: "11 = 2·5 + 1 → S(5) + S(6) = 3 + 2 = 5." },
+                { type: "mc", q: "Welchen Wert hat S(16)?", options: ["1", "2", "4", "8"], answer: 0, explain: "16 → 8 → 4 → 2 → 1, alles gerade → S(16) = S(1) = 1." },
+                { type: "bug", q: "Diese Version endet bei S(5) in einem RecursionError. Welche Zeile ist schuld?", lines: ["def S(n):", "    if n == 0: return 0", "    if n == 1: return 1", "    if n % 2 == 0:", "        return S(n // 2)", "    m = n / 2", "    return S(m) + S(m + 1)"], answer: 5, explain: "5 / 2 = 2.5 → S(2.5) + S(3.5) → die Werte werden nie genau 0 oder 1 → Endlos-Rekursion. Richtig: m = n // 2 (getestet)." },
+                { type: "bug", q: "Diese Version liefert S(5) = 2 statt 3. Welche Zeile ist falsch?", lines: ["def S(n):", "    if n == 0: return 0", "    if n == 1: return 1", "    if n % 2 == 0:", "        return S(n // 2)", "    m = n // 2", "    return S(m) + S(m)"], answer: 6, explain: "S₂ₘ₊₁ = Sₘ + Sₘ₊₁, also S(m) + S(m + 1). Mit S(m) + S(m) kommt bei S(5) = S(2) + S(2) = 2 heraus." },
+                { type: "order", mono: true, q: "Setze die rekursive Funktion zusammen:", steps: ["def S(n):", "    if n == 0:", "        return 0", "    if n == 1:", "        return 1", "    if n % 2 == 0:", "        return S(n // 2)", "    m = n // 2", "    return S(m) + S(m + 1)"], explain: "Erst Abbruch (0, 1), dann gerade, dann ungerade." }
+              ],
+              sources: ["Foto: OOP-Klausur letzter Termin, Seite 2 (Aufgabe 4, 16 P.)", "Musterlösung getestet für n = 0 … 16"]
+            },
+            {
+              id: "oop-05-zweierpotenz",
+              exam: "Letzte Klausur A5 · 11 P.",
+              title: "Zerlegung n = 2ᵏ · m mit while-Schleife",
+              minutes: 4, xp: 110,
+              tldr: R`Jede Zahl lässt sich zerlegen in „so oft durch 2 teilbar“ (k) mal „ungerader Rest“ (m). 40 = 2³ · 5. Der Algorithmus ist ein einfacher Loop: Solange m gerade ist, halbieren und k hochzählen. Am Ende das Tupel <code>(k, m)</code> zurückgeben.`,
+              core: [
+                { h: "Musterlösung (getestet)" },
+                { code: `def F(n):
+    k = 0
+    m = n
+    while m % 2 == 0:
+        m = m // 2
+        k = k + 1
+    return (k, m)`, lang: "python" },
+                { table: { head: ["Aufruf", "Ergebnis", "Probe"], rows: [
+                  ["<code>F(12)</code>", "<code>(2, 3)</code>", "2² · 3 = 12"],
+                  ["<code>F(40)</code>", "<code>(3, 5)</code>", "2³ · 5 = 40"],
+                  ["<code>F(7)</code>", "<code>(0, 7)</code>", "2⁰ · 7 = 7"],
+                  ["<code>F(1)</code>", "<code>(0, 1)</code>", ""],
+                  ["<code>F(96)</code>", "<code>(5, 3)</code>", "32 · 3 = 96"],
+                  ["<code>F(1024)</code>", "<code>(10, 1)</code>", ""]
+                ]}},
+                { note: R`n ist laut Aufgabe aus ℕ = {1, 2, 3, …}, also nie 0. Mit n = 0 wäre die while-Schleife endlos (0 % 2 == 0 bleibt immer wahr).` }
+              ],
+              tips: [ { title: "Trace-Tabelle für F(40)", body: R`m = 40, k = 0 → 20, 1 → 10, 2 → 5, 3 → 5 ist ungerade → Ende → (3, 5).` } ],
+              traps: [
+                { title: "Falle: Rückgabe als Liste", body: R`Gefordert ist ein Paar (2-Tupel): <code>return (k, m)</code>, nicht <code>[k, m]</code>.` },
+                { title: "Falle: m = m / 2", body: R`Ergibt float (5.0 statt 5). Ganzzahldivision <code>//</code> verwenden.` }
+              ],
+              checks: [
+                { type: "mc", q: "Was liefert F(48)?", options: ["(4, 3)", "(3, 6)", "(2, 12)", "(16, 3)"], answer: 0, explain: "48 → 24 → 12 → 6 → 3: viermal halbiert → (4, 3). Probe: 16 · 3 = 48." },
+                { type: "mc", q: "Was liefert F(9)?", options: ["(0, 9)", "(1, 9)", "(3, 1)", "(0, 1)"], answer: 0, explain: "9 ist ungerade → Schleife läuft nie → (0, 9)." },
+                { type: "mc", q: "Was liefert F(2)?", options: ["(0, 2)", "(1, 1)", "(2, 1)", "(1, 2)"], answer: 1, explain: "2 → 1 → (1, 1). Probe 2¹ · 1 = 2." },
+                { type: "order", mono: true, q: "Setze die Funktion zusammen:", steps: ["def F(n):", "    k = 0", "    m = n", "    while m % 2 == 0:", "        m = m // 2", "        k = k + 1", "    return (k, m)"], explain: "Initialisieren, solange gerade halbieren und zählen, dann Tupel zurückgeben." }
+              ],
+              sources: ["Foto: OOP-Klausur letzter Termin, Seite 2 (Aufgabe 5, 11 P.)", "Musterlösung getestet"]
+            },
+            {
+              id: "oop-06-klasse-temperatur",
+              exam: "Letzte Klausur A6 · 13 P.",
+              title: "Klasse Temperatur: __init__, Attribute, Methode",
+              minutes: 6, xp: 130,
+              tldr: R`Endlich das „Objektorientierte“: Eine <b>Klasse</b> ist der Bauplan, ein <b>Objekt</b> ein konkretes Exemplar, wie die Spielerkarte in FIFA und ein konkreter Spieler. <code>__init__</code> setzt die Attribute beim Erstellen, die Methode <code>Wechsel2Fahrenheit</code> verändert das Objekt selbst. Der Schlüssel zu allem ist <code>self</code>.`,
+              core: [
+                { h: "Musterlösung (getestet)" },
+                { code: `class Temperatur:
+    def __init__(self, Mz=0, Eh='°C'):
+        self.Maßzahl = Mz
+        self.Einheit = Eh
+
+    def Wechsel2Fahrenheit(self):
+        if self.Einheit == '°C':
+            self.Maßzahl = 1.8 * self.Maßzahl + 32
+            self.Einheit = '°F'`, lang: "python" },
+                { code: `t = Temperatur(100)
+t.Wechsel2Fahrenheit()
+print(t.Maßzahl, t.Einheit)   # 212.0 °F
+
+u = Temperatur()              # Default-Werte
+print(u.Maßzahl, u.Einheit)   # 0 °C`, lang: "python" },
+                { h: "Die 4 Regeln für Klassen (slides_12–13)" },
+                { list: [
+                  R`<code>self</code> ist <b>immer</b> der erste Parameter jeder Methode, auch bei <code>__init__</code>`,
+                  R`Attribute immer mit <code>self.</code> davor setzen und lesen, sonst ist es nur eine lokale Variable`,
+                  R`Optionale Parameter = Parameter mit Default-Wert: <code>Mz=0, Eh='°C'</code>`,
+                  R`Methode aufrufen: <code>t.Wechsel2Fahrenheit()</code>, self wird automatisch übergeben`
+                ]},
+                { note: R`<code>Maßzahl</code> mit ß ist in Python 3 ein erlaubter Name. Schreib ihn genau so, wie er in der Aufgabe steht.` }
+              ],
+              tips: [ { title: "Warum die if-Abfrage in (b)?", body: R`Ohne Prüfung würde ein zweiter Aufruf aus 212 °F nochmal 413,6 °F machen. Die Aufgabe verlangt es nicht ausdrücklich, aber es zeigt Verständnis und schadet nicht.` } ],
+              traps: [
+                { title: "Falle: self vergessen", body: R`<code>def Wechsel2Fahrenheit():</code> → TypeError beim Aufruf („takes 0 positional arguments but 1 was given“).` },
+                { title: "Falle: Maßzahl = … ohne self", body: R`Ändert nur eine lokale Variable, das Objekt bleibt bei Celsius.` },
+                { title: "Falle: Reihenfolge der Umrechnung", body: R`Zuerst die Zahl umrechnen, dann die Einheit ändern, oder beides unabhängig. Nicht erst Einheit '°F' setzen und dann mit einer Prüfung auf '°C' rechnen wollen.` }
+              ],
+              checks: [
+                { type: "mc", q: "Was wird ausgegeben?", code: "t = Temperatur(-40)\nt.Wechsel2Fahrenheit()\nprint(t.Maßzahl)", options: ["-40", "-40.0", "-8.0", "40.0"], answer: 1, explain: "1.8 · (−40) + 32 = −40.0 (float wegen 1.8). −40 °C = −40 °F." },
+                { type: "mc", q: "Was wird ausgegeben?", code: "u = Temperatur(Eh='°F')\nprint(u.Maßzahl, u.Einheit)", options: ["0 °C", "0 °F", "TypeError", "None °F"], answer: 1, explain: "Mz nimmt den Default 0, Eh wird mit Schlüsselwort auf '°F' gesetzt." },
+                { type: "bug", q: "Nach dem Aufruf steht das Objekt immer noch auf Celsius. Welche Zeile ist falsch?", lines: ["class Temperatur:", "    def __init__(self, Mz=0, Eh='°C'):", "        self.Maßzahl = Mz", "        self.Einheit = Eh", "    def Wechsel2Fahrenheit(self):", "        Maßzahl = 1.8 * self.Maßzahl + 32", "        self.Einheit = '°F'"], answer: 5, explain: "Ohne self. entsteht eine lokale Variable, das Attribut bleibt unverändert. Richtig: self.Maßzahl = …" },
+                { type: "order", mono: true, q: "Setze die Klasse zusammen:", steps: ["class Temperatur:", "    def __init__(self, Mz=0, Eh='°C'):", "        self.Maßzahl = Mz", "        self.Einheit = Eh", "    def Wechsel2Fahrenheit(self):", "        if self.Einheit == '°C':", "            self.Maßzahl = 1.8 * self.Maßzahl + 32", "            self.Einheit = '°F'"], explain: "Klasse → __init__ mit Defaults → Attribute → Methode mit Prüfung und Umrechnung." },
+                { type: "mc", q: "Wie viel °F sind 25 °C?", options: ["45", "57", "77", "102,6"], answer: 2, explain: "1,8 · 25 + 32 = 45 + 32 = 77." }
+              ],
+              sources: ["Foto: OOP-Klausur letzter Termin, Seite 2 (Aufgabe 6, 8 + 5 P.)", "GoodNotes: Folien Motzek slides_12 (Objekte, Klassen, Instanzen), slides_13 (Spezielle Attribute)", "Musterlösung getestet"]
+            },
+            /* ================= KLAUSUR 2024 (leichter) ================= */
+            {
+              id: "oop-07-dictionary",
+              exam: "Klausur 2024 A2 + A4",
+              title: "Dictionaries: Lückencode & erlaubte Schlüssel",
+              minutes: 4, xp: 100,
+              tldr: R`2024 gab es einen Lückentext: Der Code steht da, aber Klammern, Doppelpunkte und Eckklammern fehlen. Dazu die Frage, was als Dictionary-Schlüssel erlaubt ist. Regel: Schlüssel müssen <b>unveränderbar</b> (hashbar) sein, also int, float, str, tuple ja, list <b>nein</b>.`,
+              core: [
+                { h: "Lückencode vervollständigt (getestet)" },
+                { code: `def Zeichenpositionen(z):
+    D = {}                    # leeres Dictionary
+    for k in range(len(z)):
+        if z[k] not in D:
+            D[z[k]] = [k]     # neue Liste mit erster Position
+        else:
+            D[z[k]].append(k) # weitere Position anhängen
+    return D
+
+Zeichenpositionen("Anna")   # {'A': [0], 'n': [1, 2], 'a': [3]}`, lang: "python" },
+                { note: R`<code>D[z[k]] = [k]</code> mit <b>eckigen Klammern</b>: Der Wert muss eine Liste sein, sonst klappt das spätere <code>.append(k)</code> nicht (AttributeError bei int).` },
+                { h: "Erlaubte Schlüssel (2024 A4)" },
+                { table: { head: ["Typ", "als Schlüssel?", "Warum"], rows: [
+                  ["int", "✓ wahr", "unveränderbar"],
+                  ["float", "✓ wahr", "unveränderbar"],
+                  ["str", "✓ wahr", "unveränderbar"],
+                  ["list", "✗ <b>falsch</b>", "veränderbar → TypeError: unhashable type"],
+                  ["tuple", "✓ wahr", "unveränderbar (wenn es nur hashbare Elemente enthält)"]
+                ]}}
+              ],
+              tips: [ { title: "Leeres Dictionary vs. leeres Set", body: R`<code>{}</code> ist ein leeres <b>Dictionary</b>. Ein leeres Set schreibt man <code>set()</code>.` } ],
+              traps: [ { title: "Falle: D[z[k]] = k", body: R`Dann ist der Wert ein int, und beim zweiten Auftreten des Zeichens kommt <code>AttributeError: 'int' object has no attribute 'append'</code>.` } ],
+              checks: [
+                { type: "mc", q: "Was liefert der Aufruf?", code: "Zeichenpositionen('Otto')", options: ["{'O': [0], 't': [1, 2], 'o': [3]}", "{'o': [0, 3], 't': [1, 2]}", "{'O': 0, 't': 2, 'o': 3}", "['O', 't', 't', 'o']"], answer: 0, explain: "Groß- und Kleinbuchstaben sind verschiedene Schlüssel." },
+                { type: "mc", q: "„Als Schlüssel für Dictionaries können Listen vom Typ list verwendet werden.“", options: ["wahr", "falsch"], answer: 1, explain: "Listen sind veränderbar und nicht hashbar → TypeError." },
+                { type: "mc", q: "„Als Schlüssel für Dictionaries können Tupel verwendet werden.“", options: ["wahr", "falsch"], answer: 0, explain: "Tupel sind unveränderbar, z. B. D[(4400, 5500)] = 'Festpunkt'." },
+                { type: "bug", q: "Welche Zeile führt beim Wort 'Anna' zum Fehler?", lines: ["def Zeichenpositionen(z):", "    D = {}", "    for k in range(len(z)):", "        if z[k] not in D:", "            D[z[k]] = k", "        else:", "            D[z[k]].append(k)", "    return D"], answer: 4, explain: "Der Wert muss eine Liste sein: D[z[k]] = [k]. Sonst scheitert append beim zweiten 'n'." }
+              ],
+              sources: ["OOP Klausur SS 2024.pdf (Aufgabe 2 Lückencode, Aufgabe 4 Dict-Schlüssel)", "GoodNotes: Folien Motzek slides_16 (Tupel, Dictionaries, Sets)", "Lösung getestet"]
+            },
+            {
+              id: "oop-08-schleifen",
+              exam: "Klausur 2024 A3",
+              title: "while/break/continue in eine for-Schleife umschreiben",
+              minutes: 4, xp: 100,
+              tldr: R`Die Funktion Teilerliste(n) sammelt alle Teiler von n, aber umständlich mit <code>while True</code>, <code>break</code> und <code>continue</code>. Deine Aufgabe ist der Umbau zu einer sauberen for-Schleife. Trick: <code>k</code> läuft von 1 bis n, also <code>range(1, n + 1)</code>.`,
+              core: [
+                { h: "Original (Zeilen 3–11)" },
+                { code: `def Teilerliste(n):
+    L = []
+    k = 0
+    while True:
+        k = k + 1
+        if k > n:
+            break
+        elif n % k != 0:
+            continue
+        else:
+            L.append(k)
+    return L`, lang: "python" },
+                { h: "Ohne while/break/continue (getestet, identisch für n = 0 … 199)" },
+                { code: `def Teilerliste(n):
+    L = []
+    for k in range(1, n + 1):
+        if n % k == 0:
+            L.append(k)
+    return L
+
+Teilerliste(12)   # [1, 2, 3, 4, 6, 12]`, lang: "python" },
+                { table: { head: ["Original", "wird zu"], rows: [
+                  ["<code>k = 0</code> + <code>k = k + 1</code> + <code>if k > n: break</code>", "<code>for k in range(1, n + 1):</code>"],
+                  ["<code>elif n % k != 0: continue</code>", "fällt weg (nichts tun)"],
+                  ["<code>else: L.append(k)</code>", "<code>if n % k == 0: L.append(k)</code>"]
+                ]}}
+              ],
+              tips: [ { title: "Kurzform als List Comprehension", body: R`<code>return [k for k in range(1, n + 1) if n % k == 0]</code>, slides_17. In der Klausur ist die ausgeschriebene Variante sicherer.` } ],
+              traps: [ { title: "Falle: range(n)", body: R`<code>range(n)</code> startet bei 0 → <code>n % 0</code> = ZeroDivisionError. Und n selbst fehlt. Richtig: <code>range(1, n + 1)</code>.` } ],
+              checks: [
+                { type: "mc", q: "Welche for-Schleife ersetzt k = 0 / k = k + 1 / if k > n: break?", options: ["for k in range(n):", "for k in range(1, n):", "for k in range(1, n + 1):", "for k in range(0, n + 1):"], answer: 2, explain: "k nimmt die Werte 1, 2, …, n an." },
+                { type: "mc", q: "Was liefert Teilerliste(15)?", options: ["[1, 3, 5]", "[1, 3, 5, 15]", "[3, 5]", "[1, 15]"], answer: 1, explain: "Teiler von 15: 1, 3, 5, 15." },
+                { type: "bug", q: "Diese Umschreibung wirft einen Fehler. Welche Zeile?", lines: ["def Teilerliste(n):", "    L = []", "    for k in range(n):", "        if n % k == 0:", "            L.append(k)", "    return L"], answer: 2, explain: "range(n) startet bei 0 → n % 0 → ZeroDivisionError." },
+                { type: "order", mono: true, q: "Setze die Lösung ohne while/break/continue zusammen:", steps: ["def Teilerliste(n):", "    L = []", "    for k in range(1, n + 1):", "        if n % k == 0:", "            L.append(k)", "    return L"], explain: "Leere Liste → for über 1..n → bei Teiler anhängen → zurückgeben." }
+              ],
+              sources: ["OOP Klausur SS 2024.pdf (Aufgabe 3)", "Original und Umschreibung für n = 0 … 199 verglichen: identisch"]
+            },
+            {
+              id: "oop-09-typpruefung",
+              exam: "Klausur 2024 A5–A7",
+              title: "Funktionen mit Typprüfung: sgn, Schaltjahr, Quersumme",
+              minutes: 5, xp: 120,
+              tldr: R`Drei kurze Funktionen mit dem gleichen Muster: <b>erst den Typ prüfen, dann rechnen</b>. Das kam auch in der letzten Klausur (MinMax) wieder, es ist also ein Lieblingsmuster des Profs. Dazu optionale Parameter mit Default-Wert und eine Typumwandlung (int → str → int) für die Quersumme.`,
+              core: [
+                { h: "A5: Signumfunktion" },
+                { code: `def sgn(x):
+    if type(x) == int or type(x) == float:
+        if x < 0:
+            return -1
+        elif x == 0:
+            return 0
+        else:
+            return 1`, lang: "python" },
+                { h: "A6: Schaltjahr (optionaler Parameter)" },
+                { code: `def ist_Schaltjahr(jjjj=2024):
+    return (jjjj % 4 == 0 and jjjj % 100 != 0) or jjjj % 400 == 0`, lang: "python" },
+                { table: { head: ["Jahr", "÷4", "÷100", "÷400", "Schaltjahr?"], rows: [
+                  ["2024", "✓", "", "", "<b>True</b>"],
+                  ["2025", "", "", "", "False"],
+                  ["1900", "✓", "✓", "", "<b>False</b>"],
+                  ["2000", "✓", "✓", "✓", "<b>True</b>"]
+                ]}},
+                { h: "A7: Quersumme (Typumwandlung)" },
+                { code: `def Quersumme(n=0):
+    if type(n) == int and n >= 0:
+        s = 0
+        for z in str(n):      # '8246357' -> '8', '2', ...
+            s = s + int(z)
+        return s
+
+Quersumme(8246357)   # 35`, lang: "python" }
+              ],
+              tips: [ { title: "Quersumme ohne str", body: R`Rechnerisch: <code>while n > 0: s += n % 10; n //= 10</code>. Funktioniert genauso, aber der Hinweis „Typumwandlungen“ zielt auf <code>str(n)</code>.` } ],
+              traps: [
+                { title: "Falle: Schaltjahr-Klammern", body: R`<code>jjjj % 4 == 0 and jjjj % 100 != 0 or jjjj % 400 == 0</code> funktioniert zwar (and bindet stärker), aber mit Klammern ist es eindeutig und verständlich.` },
+                { title: "Falle: Default-Wert vergessen", body: R`„optionaler Parameter jjjj mit default-Wert 2024“ heißt <code>def ist_Schaltjahr(jjjj=2024):</code>. Dann liefert <code>ist_Schaltjahr()</code> True.` }
+              ],
+              checks: [
+                { type: "mc", q: "Was liefert der Aufruf?", code: "ist_Schaltjahr(2100)", options: ["True", "False", "None", "TypeError"], answer: 1, explain: "2100 ist durch 100, aber nicht durch 400 teilbar → kein Schaltjahr." },
+                { type: "mc", q: "Was liefert der Aufruf?", code: "sgn('5')", options: ["1", "-1", "None", "TypeError"], answer: 2, explain: "'5' ist ein str → Typprüfung schlägt fehl → kein return → None." },
+                { type: "mc", q: "Was liefert der Aufruf?", code: "Quersumme(2026)", options: ["8", "10", "2026", "None"], answer: 1, explain: "2 + 0 + 2 + 6 = 10." },
+                { type: "mc", q: "Was liefert der Aufruf?", code: "Quersumme(3.0)", options: ["3", "3.0", "None", "ValueError"], answer: 2, explain: "3.0 ist float, nicht int → None." },
+                { type: "bug", q: "Finde den Fehler in der Quersumme:", lines: ["def Quersumme(n=0):", "    if type(n) == int and n >= 0:", "        s = 0", "        for z in str(n):", "            s = s + z", "        return s"], answer: 4, explain: "z ist ein Zeichen (str) → int + str → TypeError. Richtig: s = s + int(z)." }
+              ],
+              sources: ["OOP Klausur SS 2024.pdf (Aufgaben 5, 6, 7)", "Alle Lösungen getestet (inkl. 1900, 2000, 2100)"]
             }
           ]
         },
