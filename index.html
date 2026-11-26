@@ -158,6 +158,8 @@ details > div{padding:0 14px 12px}
 .opts{display:grid;gap:8px}
 .opt{text-align:left;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);cursor:pointer;font-size:15px;min-height:48px}
 .opt:hover:not(:disabled){border-color:var(--cyan)}
+.opt .katex,.q .katex{font-size:1.25em}
+.opt .katex .mfrac,.q .katex .mfrac{font-size:1.15em}
 .opt.ok{border-color:var(--ok);background:rgba(46,229,157,.12)}
 .opt.bad{border-color:var(--bad);background:rgba(255,77,109,.12);animation:shake .35s}
 .opt:disabled{cursor:default}
@@ -376,7 +378,8 @@ function viewModule(id){
         <div class="n">${String(i+1).padStart(2,"0")}</div>
         <div class="grow"><div style="font-weight:700">${esc(x.title)}</div>
           <div class="m" style="font-size:12px;color:var(--mut)">⏱ ${x.minutes} min · ${x.checks.length} Checks</div>
-          ${x.weak && !st.done?`<div style="margin-top:6px"><span class="badge wine">⚠ KLAUSUR-SCHWACHSTELLE</span></div>`:""}</div>
+          ${x.weak && !st.done?`<div style="margin-top:6px"><span class="badge wine">⚠ KLAUSUR-SCHWACHSTELLE</span></div>`:""}
+          ${x.exam?`<div style="margin-top:6px"><span class="badge" style="color:var(--cyan);border-color:rgba(34,225,255,.4)">🎯 ${esc(x.exam)}</span></div>`:""}</div>
         ${st.done?`<span class="badge gold">CLEAR</span>`:`<span class="badge">START</span>`}
       </div>`;}).join("")}</div>`;
 }

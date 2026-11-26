@@ -24,7 +24,7 @@
 const R = String.raw;
 
 window.STUDY_DATA = {
-  version: "2026-11-26.3",
+  version: "2026-11-26.4",
 
   levels: [
     { xp: 0,    name: "Kadett" },
@@ -183,7 +183,479 @@ window.STUDY_DATA = {
       id: "nachhol",
       label: "Nachhol-Module",
       modules: [
-        { id: "ma1", title: "Mathematik I", code: "6018001", icon: "∫", missions: [] },
+        {
+          id: "ma1",
+          title: "Mathematik I",
+          code: "6018001",
+          prof: "Trigonometrie: Dr. R. Küstner · Analysis",
+          icon: "∫",
+          missions: [
+            /* ===================== TRIGONOMETRIE ===================== */
+            {
+              id: "ma1-t1-sinussatz",
+              exam: "Trigo Aufgabe 1 · 8–9 P.",
+              title: "Ebenes Dreieck SSW: Sinussatz & Eindeutigkeit",
+              minutes: 5, xp: 120,
+              tldr: R`Aufgabe 1 kommt jedes Mal: zwei Seiten und ein Winkel, der <b>nicht</b> zwischen ihnen liegt (SSW). Wie beim Elfmeter gibt es einen sauberen Ablauf: Prüfen, ob die Lösung eindeutig ist, dann Sinussatz für den fehlenden Winkel, dann Winkelsumme, dann nochmal Sinussatz für die letzte Seite. 2019: b = 8, c = 6, β = 40°. Letztes Mal: b = 5, c = 4, β = 36°.`,
+              core: [
+                { h: "Der Ablauf (4 Zeilen)" },
+                { math: R`\sin\gamma = \frac{c \cdot \sin\beta}{b} \quad\Rightarrow\quad \alpha = 180^\circ - \beta - \gamma \quad\Rightarrow\quad a = \frac{b \cdot \sin\alpha}{\sin\beta}` },
+                { h: "Eindeutig oder nicht? (immer hinschreiben!)" },
+                { table: { head: ["Fall", "Bedeutung", "Lösungen"], rows: [
+                  [R`$b \ge c$`, "β liegt der größeren bekannten Seite gegenüber", "<b>genau eine</b> (γ spitz)"],
+                  [R`$b < c$, $\sin\gamma < 1$`, "β liegt der kleineren Seite gegenüber", "<b>zwei</b>: γ₁ und γ₂ = 180° − γ₁"],
+                  [R`$b < c$, $\sin\gamma = 1$`, "", "eine (γ = 90°)"],
+                  [R`$\sin\gamma > 1$`, "", "<b>keine</b>"]
+                ]}},
+                { h: "Musterlösung Klausur (b = 5, c = 4, β = 36°)" },
+                { table: { head: ["Schritt", "Rechnung", "Ergebnis"], rows: [
+                  ["Fall", "b = 5 > c = 4", "eindeutig"],
+                  ["γ", R`$\sin\gamma = 4\cdot\sin 36^\circ/5 = 0{,}4702$`, "γ = 28,05°"],
+                  ["α", "180° − 36° − 28,05°", "α = 115,95°"],
+                  ["a", R`$5\cdot\sin 115{,}95^\circ/\sin 36^\circ$`, "a = 7,65"]
+                ]}},
+                { p: R`<b>Version 2019</b> (b = 8, c = 6, β = 40°): γ = 28,82°, α = 111,18°, a = 11,61 m.` },
+                { note: R`Zwischenergebnisse auf <b>4</b>, Endergebnisse auf <b>2</b> Nachkommastellen runden (steht im Deckblatt). Taschenrechner im <b>DEG</b>-Modus!` }
+              ],
+              tips: [
+                { title: "Zweideutiger Fall durchgerechnet", body: R`b = 4, c = 6, β = 30°: sin γ = 0,75 → γ₁ = 48,59° (α = 101,41°, a = 7,84) <b>und</b> γ₂ = 131,41° (α = 18,59°, a = 2,55). Beide Dreiecke angeben!` },
+                { title: "Alternative für a: Kosinussatz", body: R`$b^2 = a^2 + c^2 - 2ac\cos\beta$ ist eine quadratische Gleichung in a und liefert die Mehrdeutigkeit automatisch, ist aber mehr Rechenarbeit.` }
+              ],
+              traps: [
+                { title: "Falle: Begründung vergessen", body: R`Der Satz „b > c, also liegt β der größeren Seite gegenüber → eindeutig“ bringt Punkte. Ohne ihn fehlt ein Teil der Lösung.` },
+                { title: "Falle: RAD-Modus", body: R`sin(36) im Bogenmaß ergibt −0,99. Wer negative Sinuswerte bei Dreieckswinkeln bekommt, hat den falschen Modus.` }
+              ],
+              checks: [
+                { type: "mc", q: R`Version 2019: b = 8 m, c = 6 m, β = 40°. Wie groß ist γ?`, options: ["28,82°", "40,00°", "59,00°", "151,18°"], answer: 0, explain: R`$\sin\gamma = 6\cdot\sin 40^\circ/8 = 0{,}4821$ → γ = 28,82°. Eindeutig, weil b > c.` },
+                { type: "mc", q: R`Weiter mit b = 8, β = 40°, γ = 28,82°: Wie lang ist a?`, options: ["6,00 m", "11,61 m", "9,47 m", "7,65 m"], answer: 1, explain: R`α = 111,18°, a = 8 · sin 111,18° / sin 40° = 11,61 m.` },
+                { type: "mc", q: R`b = 4, c = 6, β = 30°. Wie viele Dreiecke gibt es?`, options: ["keins", "genau eins", "zwei", "unendlich viele"], answer: 2, explain: R`b < c und sin γ = 0,75 < 1 → zwei Lösungen: γ₁ = 48,59° und γ₂ = 131,41°.` },
+                { type: "mc", q: R`b = 3, c = 7, β = 40°. Wie viele Dreiecke gibt es?`, options: ["keins (sin γ > 1)", "genau eins", "zwei", "unendlich viele"], answer: 0, explain: R`sin γ = 7 · sin 40° / 3 = 1,50 > 1 → kein Dreieck.` },
+                { type: "order", q: "Bringe den Lösungsweg in die richtige Reihenfolge:", steps: ["Fallunterscheidung: b ≥ c → eindeutig", "Sinussatz: sin γ = c · sin β / b", "γ mit sin⁻¹ bestimmen", "α = 180° − β − γ", "a = b · sin α / sin β"], explain: "Fall → γ → α → a." }
+              ],
+              sources: ["Foto: Trigonometrie-Klausur 06.02.2019 (A1) und letzte Klausur (A1)", "Lösungen_Trigonometrie_Klausur2.pdf (A1)", "GoodNotes: 1. Semester/Mathe/Trigonometrie/Trigonometrie_Skript-Notizen.pdf – Kap. 1"]
+            },
+            {
+              id: "ma1-t2-gleichungen",
+              exam: "Trigo Aufgabe 2 · 4–6 P.",
+              title: "Trigonometrische Gleichungen in (0°, 180°)",
+              minutes: 4, xp: 100,
+              tldr: R`Schnelle Punkte: sin(α) = 2/3, tan(α) = −3/4, cot(α) = 4/5, immer mit 0° < α < 180°. Der Trick ist zu wissen, wie viele Lösungen es im Bereich gibt. <b>Sinus ist der einzige mit zwei Lösungen.</b> Tangens, Kotangens und Kosinus sind dort eindeutig.`,
+              core: [
+                { table: { head: ["Gleichung", "Lösungen in (0°,180°)", "Formel"], rows: [
+                  [R`$\sin\alpha = k$, $0 \lt k \lt 1$`, "<b>zwei</b>", R`$\alpha_1 = \sin^{-1}k$, $\alpha_2 = 180^\circ - \alpha_1$`],
+                  [R`$\cos\alpha = k$`, "eine", R`$\alpha = \cos^{-1}k$ (direkt)`],
+                  [R`$\tan\alpha = k > 0$`, "eine", R`$\alpha = \tan^{-1}k$`],
+                  [R`$\tan\alpha = k < 0$`, "eine (zwischen 90° und 180°)", R`$\alpha = 180^\circ + \tan^{-1}k$`],
+                  [R`$\cot\alpha = k$`, "eine", R`$\alpha = 90^\circ - \tan^{-1}k$`]
+                ]}},
+                { h: "Musterlösung Klausur" },
+                { table: { head: ["", "Rechnung", "Lösung"], rows: [
+                  ["(a) sin α = 2/3", "sin⁻¹(2/3) = 41,81°", "α₁ = 41,81°, α₂ = 138,19°"],
+                  ["(b) tan α = −3/4", "180° − tan⁻¹(3/4) = 180° − 36,87°", "α = 143,13°"],
+                  ["(c) cot α = 4/5", "90° − tan⁻¹(4/5) = 90° − 38,66°", "α = 51,34°"]
+                ]}},
+                { note: R`Warum $\cot\alpha = k \Rightarrow \alpha = 90^\circ - \tan^{-1}k$? Weil $\cot\alpha = \tan(90^\circ - \alpha)$. Das funktioniert auch für negative k, z. B. cot α = −4/5 → α = 90° + 38,66° = 128,66°.` }
+              ],
+              tips: [ { title: "Begründung für die Anzahl", body: R`Schreib einen Satz dazu: „sin ist auf (0°,180°) nicht monoton, daher zwei Lösungen“ bzw. „tan/cot ist auf (0°,180°) streng monoton, daher eine Lösung“. Das bringt in der Musterlösung die Punkte.` } ],
+              traps: [
+                { title: "Falle: Nur 41,81° angeben", body: R`Bei sin(α) = 2/3 fehlt dann die zweite Lösung 138,19°, und damit die Hälfte der Punkte.` },
+                { title: "Falle: tan⁻¹(−3/4) = −36,87° als Lösung", body: R`−36,87° liegt nicht im Bereich. Die richtige Lösung ist +180° → 143,13°.` }
+              ],
+              checks: [
+                { type: "mc", q: R`Alle Lösungen von $\sin\alpha = 0{,}3$ mit 0° < α < 180°?`, options: ["17,46°", "17,46° und 162,54°", "17,46° und 197,46°", "72,54°"], answer: 1, explain: "α₂ = 180° − 17,46° = 162,54°." },
+                { type: "mc", q: R`Lösung von $\cot\alpha = -4/5$ mit 0° < α < 180°?`, options: ["−38,66°", "51,34°", "128,66°", "141,34°"], answer: 2, explain: "α = 90° − tan⁻¹(−0,8) = 90° + 38,66° = 128,66°." },
+                { type: "mc", q: R`Wie viele Lösungen hat $\cos\alpha = -1/2$ in (0°, 180°)?`, options: ["keine", "eine: 120°", "zwei: 120° und 240°", "zwei: 60° und 120°"], answer: 1, explain: "Kosinus ist auf (0°,180°) streng fallend → genau eine Lösung, α = 120°." },
+                { type: "mc", q: R`$\tan\alpha = -3/4$: Welche Lösung?`, options: ["−36,87°", "36,87°", "143,13°", "126,87°"], answer: 2, explain: "Negativer Tangens nur zwischen 90° und 180°: 180° − 36,87° = 143,13°." }
+              ],
+              sources: ["Foto: Trigo-Klausuren (A2)", "Lösungen_Trigonometrie_Klausur2.pdf (A2)", "Trigonometrie-Skript: Umkehrfunktionen von sin, cos, tan, cot"]
+            },
+            {
+              id: "ma1-t3-kugelkoordinaten",
+              exam: "Trigo Aufgabe 3 · 7 P.",
+              title: "Kartesisch → Kugelkoordinaten r, λ, φ",
+              minutes: 4, xp: 100,
+              tldr: R`Aus x, y, z werden Radius r, Länge λ und Breite φ, genau wie GPS-Koordinaten. r und φ sind Formel einsetzen. <b>Die Punkte liegen bei λ</b>: Der Taschenrechner kennt nur tan⁻¹ zwischen −90° und 90°, also musst du je nach Quadrant ±180° rechnen.`,
+              core: [
+                { math: R`r = \sqrt{x^2+y^2+z^2} \qquad s = \sqrt{x^2+y^2} \qquad \varphi = \sin^{-1}\!\left(\frac{z}{r}\right)` },
+                { table: { head: ["Fall", "λ"], rows: [
+                  ["x > 0", R`$\tan^{-1}(y/x)$`],
+                  ["x = 0", R`$\mathrm{sgn}(y)\cdot 90^\circ$`],
+                  ["x < 0, y ≠ 0", R`$\tan^{-1}(y/x) + \mathrm{sgn}(y)\cdot 180^\circ$`],
+                  ["x < 0, y = 0", "180°"]
+                ]}},
+                { h: "Musterlösung P(−3 | 2 | −6)" },
+                { list: [
+                  R`r = √(9 + 4 + 36) = √49 = <b>7</b>`,
+                  R`x < 0, y > 0 → λ = tan⁻¹(2/−3) + 180° = −33,69° + 180° = <b>146,31°</b>`,
+                  R`φ = sin⁻¹(−6/7) = <b>−59,00°</b>`
+                ]},
+                { p: R`<b>Version 2019</b> P(16 | 12 | −15): r = 25, λ = 36,87°, φ = −36,87°.` }
+              ],
+              tips: [ { title: "Plausibilitäts-Check", body: R`x < 0, y > 0 heißt 2. Quadrant → λ muss zwischen 90° und 180° liegen. x < 0, y < 0 → zwischen −180° und −90°. Kurz eine Skizze machen.` } ],
+              traps: [ { title: "Falle: λ = −33,69° hinschreiben", body: R`Das ist der Taschenrechnerwert, aber der Punkt liegt im 2. Quadranten. Es fehlt +180°.` } ],
+              checks: [
+                { type: "mc", q: "P(4 | −3 | 12): Wie groß sind r, λ, φ?", options: ["r = 13, λ = −36,87°, φ = 67,38°", "r = 13, λ = 143,13°, φ = 67,38°", "r = 5, λ = −36,87°, φ = 22,62°", "r = 13, λ = 36,87°, φ = −67,38°"], answer: 0, explain: "x > 0 → λ = tan⁻¹(−3/4) = −36,87° ohne Korrektur. r = 13, φ = sin⁻¹(12/13) = 67,38°." },
+                { type: "mc", q: "P(−4 | −4 | 2): Wie groß ist λ?", options: ["45°", "−45°", "135°", "−135°"], answer: 3, explain: "x < 0, y < 0 → tan⁻¹(1) − 180° = 45° − 180° = −135°." },
+                { type: "mc", q: "P(−4 | −4 | 2): Wie groß ist φ? (r = 6)", options: ["19,47°", "−19,47°", "70,53°", "30,00°"], answer: 0, explain: "φ = sin⁻¹(2/6) = 19,47°." },
+                { type: "mc", q: "P(−6 | 8 | 0): Wie groß ist λ?", options: ["−53,13°", "53,13°", "126,87°", "−126,87°"], answer: 2, explain: "tan⁻¹(8/−6) = −53,13°, + 180° (y > 0) = 126,87°." }
+              ],
+              sources: ["Foto: Trigo-Klausuren (A3)", "Lösungen_Trigonometrie_Klausur2.pdf (A3)", "Trigonometrie-Skript Kap. 2.2.2, Formeln (2.18)–(2.20)"]
+            },
+            {
+              id: "ma1-t4-wahrfalsch",
+              exam: "Trigo Aufgabe 4 · 3–4 P.",
+              title: "Wahr/Falsch: Großkreise, Orthodromen & Eulersche Dreiecke",
+              minutes: 5, xp: 110,
+              tldr: R`Die Ankreuzaufgabe ist gefährlich, weil sie wie geschenkte Punkte aussieht. 2019 gab es hier nur 1 von 3 Punkten. Du brauchst nur zwei Dinge: den <b>Äquator als Sonderfall</b> (Breitenkreis UND Großkreis) und die <b>Eigenschaften E1–E8</b> Eulerscher Dreiecke.`,
+              core: [
+                { h: "Kreise auf der Kugel" },
+                { list: [
+                  R`<b>Großkreis</b>: Mittelpunkt = Kugelmittelpunkt (Äquator, alle Meridiane mit Gegenmeridian)`,
+                  R`<b>Kleinkreis</b>: alle anderen, z. B. jeder Breitenkreis <b>außer dem Äquator</b> (Radius R·cos φ)`,
+                  R`<b>Orthodrome</b> = kürzester Großkreisbogen zwischen A und B (kürzer als ein halber Großkreis)`,
+                  R`Orthodromen entlang eines Breitenkreises gibt es <b>nur auf dem Äquator</b>`
+                ]},
+                { h: "Eulersche Dreiecke: E1–E8 (Skript)" },
+                { table: { head: ["", "Bedingung"], rows: [
+                  ["E1", "0° < a, b, c < 180°"],
+                  ["E2", "0° < α, β, γ < 180°"],
+                  ["E3", "0° < a + b + c < 360°"],
+                  ["E4", "<b>180° < α + β + γ < 540°</b>"],
+                  ["E5", "a < b + c, b < c + a, c < a + b"],
+                  ["E6", "<b>α + β < γ + 180°</b>, β + γ < α + 180°, γ + α < β + 180°"],
+                  ["E7", "größte Seite gegenüber größtem Winkel"],
+                  ["E8", "a + b ⋚ 180° ⇔ α + β ⋚ 180° (gleiche Beziehung)"]
+                ]}},
+                { p: R`<b>Rechtwinklig</b> (γ = 90°): $\cos c = \cos a \cos b$ (sphärischer Pythagoras). a und α sind gleichartig, b und β ebenso. Ein Eulersches Dreieck kann <b>bis zu drei rechte Winkel</b> haben (Kugeloktant, „halbes Zweieck“).` },
+                { h: "Musterlösung letzte Klausur" },
+                { table: { head: ["Aussage", "Antwort", "Warum"], rows: [
+                  ["Ebenes rechtwinkliges Dreieck a=10, b=8, c=6", "wahr", "6² + 8² = 100 = 10²"],
+                  ["Orthodromen verlaufen nie entlang von Breitenkreisen", "falsch", "Äquator"],
+                  ["Eulersches Dreieck α=50°, β=90°, γ=130°", "wahr", "Summe 270° ✓, alle E6 ✓"],
+                  ["Eulersches Dreieck b=45°, c=135°, γ=90°", "falsch", "cos a = cos 135°/cos 45° = −1 → a = 180°, verletzt E1"]
+                ]}},
+                { table: { head: ["Aussage 2019", "Antwort", "Warum"], rows: [
+                  ["Alle Breitenkreise sind Kleinkreise", "<b>falsch</b>", "Der Äquator ist ein Großkreis"],
+                  ["Alle Orthodromen sind Bogenstücke von Großkreisen", "<b>wahr</b>", "Definition"],
+                  ["Alle Eulerschen Dreiecke haben höchstens einen rechten Winkel", "<b>falsch</b>", "Oktant: drei rechte Winkel"]
+                ]}}
+              ],
+              tips: [ { title: "Prüf-Reihenfolge bei Winkeln", body: R`1) Summe zwischen 180° und 540° (E4)? 2) Alle drei E6-Ungleichungen? Bei rechtwinkligen Dreiecken zusätzlich mit $\cos c = \cos a\cos b$ prüfen, ob ein Wert außerhalb (0°, 180°) herauskommt.` } ],
+              traps: [
+                { title: "Falle: „Alle“ und „niemals“", body: R`Solche Wörter sind fast immer ein Hinweis auf einen Sonderfall (Äquator, Oktant). Ein einziges Gegenbeispiel macht die Aussage falsch.` },
+                { title: "Falle: Winkelsumme 180° wie in der Ebene", body: R`Auf der Kugel ist die Winkelsumme <b>immer größer</b> als 180°.` }
+              ],
+              checks: [
+                { type: "mc", q: "„Alle Breitenkreise sind Kleinkreise.“", options: ["wahr", "falsch"], answer: 1, explain: "Der Äquator ist ein Breitenkreis und zugleich ein Großkreis." },
+                { type: "mc", q: "„Alle Orthodromen sind Bogenstücke von Großkreisen.“", options: ["wahr", "falsch"], answer: 0, explain: "Die Orthodrome ist per Definition der kürzere Großkreisbogen." },
+                { type: "mc", q: "„Alle Eulerschen Dreiecke haben höchstens einen rechten Winkel.“", options: ["wahr", "falsch"], answer: 1, explain: "Der Kugeloktant (z. B. Nordpol, 0°/0°, 0°/90°E) hat drei rechte Winkel." },
+                { type: "mc", q: "„Es gibt Eulersche Dreiecke mit α = 50°, β = 90°, γ = 130°.“", options: ["wahr", "falsch"], answer: 0, explain: "Summe 270° liegt in (180°, 540°), und 140° < 310°, 220° < 230°, 180° < 270° erfüllen E6." },
+                { type: "mc", q: "„Es gibt Eulersche Dreiecke mit α = 20°, β = 30°, γ = 40°.“", options: ["wahr", "falsch"], answer: 1, explain: "Winkelsumme 90° < 180° verletzt E4." },
+                { type: "mc", q: "„Es gibt Eulersche Dreiecke mit α = 30°, β = 40°, γ = 170°.“", options: ["wahr", "falsch"], answer: 1, explain: "Summe 240° passt, aber E6: β + γ = 210° ist nicht < α + 180° = 210° → kein Dreieck." },
+                { type: "mc", q: "„Es gibt Eulersche Dreiecke mit b = 45°, c = 135°, γ = 90°.“", options: ["wahr", "falsch"], answer: 1, explain: "cos a = cos 135°/cos 45° = −1 → a = 180°, verletzt E1." }
+              ],
+              sources: ["Foto: Trigo-Klausuren (A4), Klausur 2019 mit Korrektur (1/3 P.)", "Lösungen_Trigonometrie_Klausur2.pdf (A4)", "Trigonometrie-Skript Kap. 3.1 (E1–E8), 3.2 (rechtwinklige Eulersche Dreiecke)"]
+            },
+            {
+              id: "ma1-t5-orthodrome",
+              exam: "Trigo Aufgabe 5 · 9 P.",
+              title: "Orthodrome, Kurswinkel & Strecke entlang eines Breitenkreises",
+              minutes: 6, xp: 130,
+              tldr: R`Die 9-Punkte-Aufgabe mit Flugzeug und echten Städten (Athen → Beirut, Quito → Frankfurt). Du rechnest im <b>Poldreieck</b> Nordpol–A–B: Länge der kürzesten Strecke mit dem Seitenkosinussatz, Kurswinkel mit dem Kotangenssatz, und für Strecken entlang eines Breitenkreises einfach $R\cos\varphi$ als Radius.`,
+              core: [
+                { h: "Kürzeste Strecke (Orthodrome)" },
+                { math: R`\cos\mu = \sin\varphi_A\sin\varphi_B + \cos\varphi_A\cos\varphi_B\cos\Delta\lambda \qquad AB = \frac{\mu}{180^\circ}\cdot\pi\cdot R` },
+                { h: "Kurswinkel beim Start in A" },
+                { math: R`\tan\alpha = \frac{\sin\Delta\lambda}{\cos\varphi_A\tan\varphi_B - \sin\varphi_A\cos\Delta\lambda}` },
+                { p: R`Kurswinkel = Richtung, gemessen von Norden im Uhrzeigersinn. Ist der Nenner negativ, liegt α zwischen 90° und 180° (Musterlösung: α = 90° − tan⁻¹(Nenner/Zähler)).` },
+                { h: "Entlang von Meridian und Breitenkreis" },
+                { math: R`\text{Meridian: } s = \frac{\Delta\varphi}{180^\circ}\pi R \qquad \text{Breitenkreis: } s = \frac{\Delta\lambda}{180^\circ}\pi R\cos\varphi` },
+                { h: "Musterlösung letzte Klausur: Athen → Beirut" },
+                { table: { head: ["", "Rechnung", "Ergebnis"], rows: [
+                  ["Δλ", "35,49° − 23,94°", "11,55°"],
+                  ["cos μ", "sin 37,94° sin 33,82° + cos 37,94° cos 33,82° cos 11,55°", "0,9841 → μ = 10,22°"],
+                  ["Strecke", "10,22/180 · π · 6378", "<b>1137,15 km</b>"],
+                  ["Kurswinkel", "Nenner = cos 37,94° tan 33,82° − sin 37,94° cos 11,55° < 0", "<b>110,29°</b>"]
+                ]}},
+                { h: "Version 2019: Quito → Frankfurt (R = 6378 km)" },
+                { table: { head: ["Teil", "Rechnung", "Ergebnis"], rows: [
+                  ["a i) Quito (0°) nach Norden bis 50°", "50/180 · π · 6378", "<b>5565,85 km</b>"],
+                  ["a ii) entlang 50° N, Δλ = 78,4° + 8,6° = 87°", "87/180 · π · 6378 · cos 50°", "<b>6225,13 km</b>"],
+                  ["b) Orthodrome", "μ = 88,07°", "<b>9803,94 km</b>"]
+                ]}},
+                { note: R`Westliche Länge ist <b>negativ</b>: Quito λ = −78,4°. Damit Δλ = 8,6° − (−78,4°) = 87°.` }
+              ],
+              tips: [
+                { title: "Kontrolle", body: R`Umweg über Meridian + Breitenkreis (11.791 km) muss länger sein als die Orthodrome (9.804 km). Sonst stimmt etwas nicht.` },
+                { title: "Erdumfang als Gefühl", body: R`1° Großkreisbogen ≈ 111,3 km (bei R = 6378 km). 10,22° ≈ 1137 km passt.` }
+              ],
+              traps: [
+                { title: "Falle: cos φ vergessen", body: R`Auf dem 50. Breitenkreis ist der Radius nur R · cos 50°. Ohne cos kommst du auf 9.684 statt 6.225 km.` },
+                { title: "Falle: Vorzeichen bei West", body: R`78,4° W als +78,4° einzusetzen liefert Δλ = 69,8° statt 87°.` }
+              ],
+              checks: [
+                { type: "mc", q: "Quito liegt auf dem Äquator. Wie lang ist der Flug genau nach Norden bis zum 50. Breitengrad? (R = 6378 km)", options: ["5565,85 km", "4100,02 km", "6225,13 km", "3577,64 km"], answer: 0, explain: "Meridianbogen: 50/180 · π · 6378 = 5565,85 km." },
+                { type: "mc", q: "Entlang des 50. Breitenkreises von 78,4° W nach 8,6° O. Wie lang ist die Strecke?", options: ["9684,58 km", "6225,13 km", "4991,73 km", "7413,00 km"], answer: 1, explain: "Δλ = 87°: 87/180 · π · 6378 · cos 50° = 6225,13 km." },
+                { type: "mc", q: "Athen (37,94° N, 23,94° O) → Beirut (33,82° N, 35,49° O). Wie lang ist die Orthodrome?", options: ["1137,15 km", "1285,70 km", "10,22 km", "983,40 km"], answer: 0, explain: "μ = 10,22° → 10,22/180 · π · 6378 = 1137,15 km." },
+                { type: "mc", q: "Unter welchem Kurswinkel startet das Flugzeug in Athen?", options: ["20,29°", "69,71°", "110,29°", "159,71°"], answer: 2, explain: "Der Nenner ist negativ → Kurs zwischen 90° und 180°: 110,29° (Ost-Südost)." },
+                { type: "mc", q: "Zwei Punkte liegen auf dem Äquator bei λ = 0° und λ = 90°. Wie lang ist die Orthodrome?", options: ["0 km", "5009,25 km", "10018,50 km", "20037,00 km"], answer: 2, explain: "Auf dem Äquator ist die Orthodrome der Äquator selbst: 90/180 · π · 6378 = 10018,5 km." }
+              ],
+              sources: ["Foto: Trigo-Klausur 2019 (A5 Quito/Frankfurt) und letzte Klausur (A5 Athen/Beirut)", "Lösungen_Trigonometrie_Klausur2.pdf (A5)", "Trigonometrie-Skript Kap. 2.3 Orthodrome"]
+            },
+            {
+              id: "ma1-t6-neper",
+              exam: "Trigo Aufgabe 6 · 8 P.",
+              title: "Rechtwinkliges Eulersches Dreieck: Nepersche Regel",
+              minutes: 5, xp: 120,
+              tldr: R`Ein rechter Winkel + zwei weitere Elemente → mit der <b>Neperschen Regel</b> berechnen. Das Nepersche Fünfeck ist ein Spickzettel, aus dem du jede Formel ablesen kannst, statt sie auswendig zu lernen. Wichtig ist am Ende, die Quadranten über „gleichartig“ und das Vorzeichen von tan richtig zu wählen.`,
+              core: [
+                { h: "Nepersches Fünfeck (γ = 90°)" },
+                { p: R`Reihenfolge im Kreis: a, γ, b, α, c, β. Die Nachbarn des rechten Winkels (a und b) durch ihre Komplemente ersetzen, γ streichen → Fünfeck: <b>90° − b, α, c, β, 90° − a</b>.` },
+                { note: R`<b>Nepersche Regel:</b> cos(Mitte) = Produkt der <b>cot</b> der beiden <b>Nachbarn</b> = Produkt der <b>sin</b> der beiden <b>Gegenüber</b>.` },
+                { table: { head: ["Formel", "Herkunft"], rows: [
+                  [R`$\cos c = \cos a\cos b$`, "Pythagoras"],
+                  [R`$\sin a = \sin c\sin\alpha$`, ""],
+                  [R`$\cos\alpha = \cos a\sin\beta$`, ""],
+                  [R`$\cos\beta = \cos b\sin\alpha$`, "Klausur"],
+                  [R`$\cos c = \cot\alpha\cot\beta$`, ""],
+                  [R`$\tan b = \tan c\cos\alpha$`, "Klausur (umgestellt nach tan c)"],
+                  [R`$\tan a = \sin b\tan\alpha$`, ""]
+                ]}},
+                { p: R`Gleichartig (beide < 90°, = 90° oder > 90°): <b>a und α</b> sowie <b>b und β</b>.` },
+                { h: "Musterlösung Klausur: b = 65°, α = 115°, γ = 90°" },
+                { list: [
+                  R`$\cos\beta = \cos 65^\circ\cdot\sin 115^\circ = 0{,}3830$ → β = <b>67,48°</b> (b spitz → β spitz ✓)`,
+                  R`$\tan c = \tan 65^\circ / \cos 115^\circ = -5{,}0743$ → tan c < 0 → c in (90°, 180°): c = 180° − 78,85° = <b>101,15°</b>`
+                ]}
+              ],
+              tips: [ { title: "Warum nicht sin verwenden?", body: R`Mit sin⁻¹ bekommst du immer einen Winkel < 90° und musst raten. cos⁻¹ und tan (mit Vorzeichen-Regel) sind in (0°, 180°) eindeutig. Darum steht in der Aufgabe „direkt aus den bekannten Elementen“.` } ],
+              traps: [
+                { title: "Falle: c = −78,85°", body: R`tan⁻¹ liefert einen negativen Wert. Seiten liegen zwischen 0° und 180°, also +180°.` },
+                { title: "Falle: Komplemente vergessen", body: R`Im Fünfeck stehen 90° − a und 90° − b, nicht a und b. Daher z. B. cos(90° − a) = sin a.` }
+              ],
+              checks: [
+                { type: "mc", q: R`γ = 90°, b = 40°, α = 70°. Wie groß ist β? ($\cos\beta = \cos b\sin\alpha$)`, options: ["43,96°", "46,04°", "136,04°", "70,00°"], answer: 0, explain: "cos β = cos 40° · sin 70° = 0,7198 → β = 43,96°. b spitz → β spitz ✓." },
+                { type: "mc", q: R`Gleiches Dreieck: Wie groß ist c? ($\tan c = \tan b/\cos\alpha$)`, options: ["22,18°", "67,82°", "112,18°", "157,82°"], answer: 1, explain: "tan c = tan 40°/cos 70° = 2,4533 > 0 → c = 67,82°." },
+                { type: "mc", q: "Welche Elemente sind bei γ = 90° gleichartig?", options: ["a und b", "a und α sowie b und β", "α und β", "c und γ"], answer: 1, explain: "Aus E7/E8 folgt: a ~ α und b ~ β." },
+                { type: "mc", q: "Nepersche Regel: Der Kosinus eines Elements ist gleich …", options: ["dem Produkt der Sinus der Nachbarn", "dem Produkt der Kotangens der Nachbarn bzw. der Sinus der Gegenüber", "der Summe der Kosinus der Gegenüber", "dem Tangens des Gegenüber"], answer: 1, explain: "cos(Mitte) = cot · cot (Nachbarn) = sin · sin (Gegenüber)." }
+              ],
+              sources: ["Foto: letzte Trigo-Klausur (A6)", "Lösungen_Trigonometrie_Klausur2.pdf (A6)", "Trigonometrie-Skript Kap. 3.2, Formeln (3.1)–(3.10)"]
+            },
+            {
+              id: "ma1-t7-kosinussaetze",
+              exam: "Trigo Aufgabe 6/7 · 8 P.",
+              title: "Allgemeines Eulersches Dreieck: Kosinus- & Kotangenssatz",
+              minutes: 5, xp: 120,
+              tldr: R`Ohne rechten Winkel helfen nur die großen Sätze. Merke dir die Fälle wie Formationen: <b>SWS</b> (zwei Seiten + Zwischenwinkel) → Seitenkosinussatz, <b>WSW</b> (zwei Winkel + Zwischenseite) → Winkelkosinussatz, und für das letzte Element der <b>Kotangenssatz</b>, der direkt eindeutig ist.`,
+              core: [
+                { h: "Die drei Sätze" },
+                { math: R`\textbf{Seitenkosinussatz: } \cos c = \cos a\cos b + \sin a\sin b\cos\gamma` },
+                { math: R`\textbf{Winkelkosinussatz: } \cos\gamma = -\cos\alpha\cos\beta + \sin\alpha\sin\beta\cos c` },
+                { math: R`\textbf{Kotangenssatz: } \cos c\cos\beta = \cot a\sin c - \cot\alpha\sin\beta` },
+                { p: R`Der Kotangenssatz verbindet vier aufeinanderfolgende Elemente, hier α, c, β, a. Nach dem gesuchten cot umstellen, dann mit $x = 90^\circ - \tan^{-1}(\cot x)$ eindeutig lösen.` },
+                { h: "Musterlösung letzte Klausur: α = 72°, β = 128°, c = 100° (WSW)" },
+                { list: [
+                  R`$\cos\gamma = -\cos 72^\circ\cos 128^\circ + \sin 72^\circ\sin 128^\circ\cos 100^\circ = 0{,}0601$ → γ = <b>86,55°</b>`,
+                  R`$\cot a = \frac{\cos 100^\circ\cos 128^\circ + \sin 128^\circ\cot 72^\circ}{\sin 100^\circ} = 0{,}3685$ → a = 90° − 20,23° = <b>69,77°</b>`
+                ]},
+                { h: "Version 2019: a = 60°, b = 120°, γ = 105° (SWS)" },
+                { list: [
+                  R`$\cos c = \cos 60^\circ\cos 120^\circ + \sin 60^\circ\sin 120^\circ\cos 105^\circ$ → c = <b>116,37°</b>`,
+                  R`Kotangenssatz: $\cot\alpha = \frac{\cot a\sin b - \cos b\cos\gamma}{\sin\gamma}$ → α = <b>69,01°</b>`
+                ]}
+              ],
+              tips: [ { title: "Probe", body: R`α = 69,01° kannst du mit dem Seitenkosinussatz für a gegenprüfen: $\cos\alpha = (\cos a - \cos b\cos c)/(\sin b\sin c)$ ergibt denselben Wert.` } ],
+              traps: [
+                { title: "Falle: Sinussatz für den zweiten Winkel", body: R`sin⁻¹ liefert nur Werte < 90°. Bei 2019 hätte das zufällig gepasst, aber bei stumpfen Winkeln ist es falsch. „Direkt aus den bekannten Elementen“ heißt: Kotangenssatz oder Kosinussatz.` },
+                { title: "Falle: Vorzeichen im Winkelkosinussatz", body: R`Vorne steht ein <b>Minus</b>: −cos α cos β.` }
+              ],
+              checks: [
+                { type: "mc", q: "Gegeben a = 50°, b = 70°, γ = 80°. Welcher Satz liefert direkt c?", options: ["Winkelkosinussatz", "Seitenkosinussatz", "Nepersche Regel", "ebener Sinussatz"], answer: 1, explain: "SWS → Seitenkosinussatz." },
+                { type: "mc", q: "Gegeben a = 50°, b = 70°, γ = 80°. Wie groß ist c?", options: ["50,00°", "69,83°", "80,00°", "110,17°"], answer: 1, explain: "cos c = cos 50° cos 70° + sin 50° sin 70° cos 80° = 0,3448 → c = 69,83°." },
+                { type: "mc", q: "Gegeben α, β und die Seite c dazwischen. Welcher Satz liefert γ?", options: ["Seitenkosinussatz", "Winkelkosinussatz", "Kotangenssatz", "Satz des Pythagoras"], answer: 1, explain: "WSW → Winkelkosinussatz: cos γ = −cos α cos β + sin α sin β cos c." },
+                { type: "bug", q: "Finde den Fehler in diesem Lösungsweg (letzte Klausur):", lines: ["cos γ = −cos 72° cos 128° + sin 72° sin 128° cos 100°", "cos γ = 0,0601 → γ = 86,55°", "cot a = (cos 100° cos 128° + sin 128° cot 72°) / sin 100°", "cot a = 0,3685", "a = tan⁻¹(0,3685) = 20,23°"], answer: 4, explain: "Aus cot a folgt a = 90° − tan⁻¹(cot a) = 90° − 20,23° = 69,77°." }
+              ],
+              sources: ["Foto: Trigo-Klausur 2019 (A6) und letzte Klausur (A7)", "Lösungen_Trigonometrie_Klausur2.pdf (A7)", "Trigonometrie-Skript Kap. 3.3 (Seiten-/Winkelkosinussatz, Kotangenssatz)"]
+            },
+            /* ======================== ANALYSIS ======================== */
+            {
+              id: "ma1-a1-ungleichung",
+              exam: "Analysis Aufgabe 1 · 8 P.",
+              title: "Bruchungleichung: D und L mit Fallunterscheidung",
+              minutes: 5, xp: 110,
+              tldr: R`(2x+1)/(4x+5) ≥ 1/3. Du darfst mit dem Nenner multiplizieren, aber nur wenn du weißt, ob er positiv oder negativ ist. Bei negativ dreht sich das Zeichen um, wie bei einem Elfmeter, bei dem der Torwart die Ecke wechselt. Also <b>zwei Fälle</b>, dann vereinigen.`,
+              core: [
+                { h: "Schema" },
+                { list: [
+                  R`<b>D</b>: Nenner ≠ 0 → $4x + 5 \neq 0$ → $D = \mathbb{R}\setminus\{-\tfrac{5}{4}\}$`,
+                  R`<b>Fall 1</b>: Nenner > 0 (x > −5/4): Zeichen bleibt → $6x+3 \ge 4x+5$ → x ≥ 1 → $L_1 = [1, \infty)$`,
+                  R`<b>Fall 2</b>: Nenner < 0 (x < −5/4): Zeichen dreht → $6x+3 \le 4x+5$ → x ≤ 1, Schnitt mit x < −5/4 → $L_2 = (-\infty, -\tfrac{5}{4})$`,
+                  R`$L = L_1 \cup L_2 = (-\infty, -\tfrac{5}{4}) \cup [1, \infty)$`
+                ]},
+                { note: R`Jedes Fall-Ergebnis mit der <b>Fallbedingung schneiden</b>. Das ist der Schritt, der am häufigsten fehlt.` }
+              ],
+              tips: [ { title: "Alternative: alles auf eine Seite", body: R`$\frac{2x+1}{4x+5} - \frac13 \ge 0 \Leftrightarrow \frac{2x-2}{3(4x+5)} \ge 0$. Dann Vorzeichentabelle mit den Stellen x = 1 und x = −5/4. Gleiches Ergebnis, weniger Fallstricke.` } ],
+              traps: [
+                { title: "Falle: −5/4 mit eckiger Klammer", body: R`−5/4 ist nicht in D, daher immer runde Klammer. x = 1 ist erlaubt (≥), daher [1, ∞).` },
+                { title: "Falle: Zeichen nicht umgedreht", body: R`Wer in Fall 2 ≥ stehen lässt, bekommt x ≥ 1 und x < −5/4, also die leere Menge, und verliert die halbe Lösung.` }
+              ],
+              checks: [
+                { type: "mc", q: R`Definitionsmenge von $\frac{2x+1}{4x+5} \ge \frac13$?`, options: ["ℝ", "ℝ \\ {−5/4}", "ℝ \\ {−1/2}", "[−5/4, ∞)"], answer: 1, explain: "Nenner 4x + 5 = 0 bei x = −5/4." },
+                { type: "mc", q: R`Lösungsmenge von $\frac{x+2}{x-1} \ge 2$?`, options: ["(1, 4]", "[1, 4]", "(−∞, 1) ∪ [4, ∞)", "(4, ∞)"], answer: 0, explain: "Fall x > 1: x + 2 ≥ 2x − 2 → x ≤ 4 → (1, 4]. Fall x < 1: x + 2 ≤ 2x − 2 → x ≥ 4, Widerspruch → ∅." },
+                { type: "mc", q: R`Lösungsmenge von $\frac{3x-1}{x+2} < 1$?`, options: ["(−2, 3/2)", "(−∞, −2) ∪ (3/2, ∞)", "(3/2, ∞)", "[−2, 3/2]"], answer: 0, explain: "Fall x > −2: 3x − 1 < x + 2 → x < 3/2. Fall x < −2: 3x − 1 > x + 2 → x > 3/2, Widerspruch." },
+                { type: "order", q: "Bringe den Lösungsweg in die richtige Reihenfolge:", steps: ["Definitionsmenge D bestimmen", "Fall 1: Nenner > 0, Zeichen bleibt", "Ergebnis mit Fallbedingung schneiden → L₁", "Fall 2: Nenner < 0, Zeichen dreht sich", "Ergebnis mit Fallbedingung schneiden → L₂", "L = L₁ ∪ L₂"], explain: "D → Fall 1 → Schnitt → Fall 2 → Schnitt → Vereinigung." }
+              ],
+              sources: ["Foto: Analysis-Klausur (A1)", "Lösungen_Analysis_Klausur2.pdf (A1)", "GoodNotes: 1. Semester/Mathe/Analysis/Skript.pdf"]
+            },
+            {
+              id: "ma1-a2-grenzwerte",
+              exam: "Analysis Aufgabe 2 · 16 P.",
+              title: "Grenzwerte: Folge, Polynomdivision & Wurzel",
+              minutes: 6, xp: 130,
+              tldr: R`16 Punkte, die größte Analysis-Aufgabe. Drei Typen kommen immer: <b>(a)</b> Bruch für n → ∞ (Leitkoeffizienten vergleichen), <b>(b)</b> 0/0 bei einem Polynom (Polynomdivision, dann kürzen), <b>(c)</b> Wurzel im Zähler. Erste Regel bei jedem Grenzwert: <b>erst einsetzen</b>, dann entscheiden.`,
+              core: [
+                { h: "(a) n → ∞: Grad vergleichen" },
+                { table: { head: ["Grad Zähler vs. Nenner", "Grenzwert"], rows: [
+                  ["Zähler < Nenner", "0"],
+                  ["gleich", "Verhältnis der Leitkoeffizienten"],
+                  ["Zähler > Nenner", "existiert nicht (±∞)"]
+                ]}},
+                { p: R`Klausur: $\frac{4-5n^2}{(1+3n)^2} = \frac{-5n^2+4}{9n^2+6n+1}$ → gleicher Grad → <b>−5/9</b>. Begründung durch Ausklammern von n² hinschreiben.` },
+                { h: "(b) 0/0 → Polynomdivision" },
+                { p: R`x → −1: Zähler $x^3+2x^2+4x+3$ und Nenner $x^2-1$ sind beide 0. Also steckt in beiden der Faktor (x + 1):` },
+                { math: R`\frac{(x+1)(x^2+x+3)}{(x+1)(x-1)} = \frac{x^2+x+3}{x-1} \xrightarrow{x\to-1} \frac{3}{-2} = -\frac32` },
+                { h: "(c) Wurzel: erst einsetzen!" },
+                { p: R`Klausur: $\lim_{x\to2}\frac{\sqrt x - 2}{x-4}$. Einsetzen: Zähler √2 − 2 ≠ 0, Nenner −2 ≠ 0 → <b>keine</b> unbestimmte Form → direkt: $\frac{\sqrt2-2}{-2} = \frac{2-\sqrt2}{2} \approx 0{,}293$.` },
+                { p: R`<b>Wahrscheinliche Variante x → 4</b> (dann 0/0): mit $\sqrt x + 2$ erweitern bzw. $x - 4 = (\sqrt x-2)(\sqrt x+2)$:` },
+                { math: R`\frac{\sqrt x - 2}{(\sqrt x - 2)(\sqrt x+2)} = \frac{1}{\sqrt x + 2} \xrightarrow{x\to4} \frac14` }
+              ],
+              tips: [
+                { title: "Polynomdivision prüfen", body: R`Ausmultiplizieren: (x + 1)(x² + x + 3) = x³ + 2x² + 4x + 3 ✓. Diese Probe kostet 20 Sekunden und gibt Sicherheit.` },
+                { title: "Antwortsatz", body: R`„Der Grenzwert existiert und ist gleich …“ Die Aufgabe fragt ausdrücklich, ob er existiert.` }
+              ],
+              traps: [
+                { title: "Falle: Bei x → 2 erweitern", body: R`Viele erweitern automatisch mit √x + 2 und rechnen sich fest. Erst einsetzen: Wenn kein 0/0 rauskommt, bist du fertig.` },
+                { title: "Falle: (1+3n)² = 1 + 9n²", body: R`Binomische Formel: 1 + 6n + 9n². Für den Grenzwert zählt nur 9n², aber falsch ausmultipliziert gibt Punktabzug.` }
+              ],
+              checks: [
+                { type: "mc", q: R`$\lim_{n\to\infty}\frac{2n^3-n}{4n^3+5}$`, options: ["0", "1/2", "2", "existiert nicht"], answer: 1, explain: "Gleicher Grad → 2/4 = 1/2." },
+                { type: "mc", q: R`$\lim_{n\to\infty}\frac{3n^2+1}{n^3-2}$`, options: ["0", "3", "∞", "−1/2"], answer: 0, explain: "Zählergrad 2 < Nennergrad 3 → 0." },
+                { type: "mc", q: R`$\lim_{x\to2}\frac{x^2+x-6}{x^2-4}$`, options: ["0", "5/4", "1", "existiert nicht"], answer: 1, explain: "0/0 → (x − 2)(x + 3) / ((x − 2)(x + 2)) = (x + 3)/(x + 2) → 5/4." },
+                { type: "mc", q: R`$\lim_{x\to9}\frac{\sqrt x - 3}{x-9}$`, options: ["0", "1/6", "1/3", "existiert nicht"], answer: 1, explain: "0/0 → 1/(√x + 3) → 1/6." },
+                { type: "mc", q: R`$\lim_{x\to4}\frac{\sqrt x - 3}{x-9}$ (Achtung!)`, options: ["1/6", "1/5", "0", "existiert nicht"], answer: 1, explain: "Kein 0/0! Direkt einsetzen: (2 − 3)/(4 − 9) = 1/5." },
+                { type: "mc", q: R`$\lim_{x\to-1}\frac{x^3+2x^2+4x+3}{x^2-1}$`, options: ["0", "3/2", "−3/2", "existiert nicht"], answer: 2, explain: "Kürzen mit (x + 1) → (x² + x + 3)/(x − 1) → 3/(−2)." }
+              ],
+              sources: ["Foto: Analysis-Klausur (A2)", "Lösungen_Analysis_Klausur2.pdf (A2)", "GoodNotes: 1. Semester/Mathe/Analysis/Skript.pdf"]
+            },
+            {
+              id: "ma1-a3-ableitungen",
+              exam: "Analysis Aufgabe 3 · 9 P.",
+              title: "Ableitungen: Quotient, Produkt, Kette, e und ln",
+              minutes: 5, xp: 110,
+              tldr: R`Drei Funktionen, drei Regeln, je 3 Punkte: <b>Quotientenregel</b> (x³/(1+x²)), <b>Produkt + Kette</b> (x⁶·cos(3x⁴)) und <b>e/ln mit Kette</b> (e^(1/x) − ln√x). Das ist reines Combo-Training, und genau dafür ist Wiederholung da.`,
+              core: [
+                { table: { head: ["Regel", "Formel"], rows: [
+                  ["Produkt", R`$(uv)' = u'v + uv'$`],
+                  ["Quotient", R`$\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}$ (NAZ − ZAN durch N²)`],
+                  ["Kette", R`$f(g(x))' = f'(g(x))\cdot g'(x)$`],
+                  ["e und ln", R`$(e^{g})' = e^{g}\cdot g'$, $\quad(\ln g)' = \frac{g'}{g}$`]
+                ]}},
+                { h: "Musterlösung Klausur" },
+                { list: [
+                  R`$f(x)=\frac{x^3}{1+x^2}$: $f'(x) = \frac{3x^2(1+x^2) - x^3\cdot 2x}{(1+x^2)^2} = \frac{x^2(x^2+3)}{(1+x^2)^2}$`,
+                  R`$g(x)=x^6\cos(3x^4)$: $g'(x) = 6x^5\cos(3x^4) - 12x^9\sin(3x^4)$`,
+                  R`$h(x)=e^{1/x} - \ln\sqrt x$: $\ln\sqrt x = \tfrac12\ln x$ → $h'(x) = -\frac{e^{1/x}}{x^2} - \frac{1}{2x}$`
+                ]},
+                { note: R`Erst vereinfachen, dann ableiten: $\ln\sqrt x = \frac12\ln x$ spart die Kettenregel.` }
+              ],
+              tips: [ { title: "Kettenregel bei cos(3x⁴)", body: R`Äußere Ableitung −sin(3x⁴), innere 12x³ → −12x³ sin(3x⁴). Dann mit x⁶ multiplizieren → −12x⁹ sin(3x⁴).` } ],
+              traps: [
+                { title: "Falle: Minus bei cos", body: R`(cos)' = <b>−</b>sin. Ein vergessenes Minus kostet in b) einen Punkt.` },
+                { title: "Falle: (1/x)' = 1/x²", body: R`Richtig ist −1/x². Daher $(e^{1/x})' = -e^{1/x}/x^2$.` }
+              ],
+              checks: [
+                { type: "mc", q: R`Ableitung von $\frac{x^2}{1+x}$?`, options: [R`$2x$`, R`$\frac{x^2+2x}{(1+x)^2}$`, R`$\frac{x^2-2x}{(1+x)^2}$`, R`$\frac{2x+3x^2}{(1+x)^2}$`], answer: 1, explain: "(2x(1 + x) − x²)/(1 + x)² = (x² + 2x)/(1 + x)²." },
+                { type: "mc", q: R`Ableitung von $x^3\sin(2x^2)$?`, options: [R`$3x^2\sin(2x^2) + 4x^4\cos(2x^2)$`, R`$3x^2\cos(4x)$`, R`$3x^2\sin(2x^2) - 4x^4\cos(2x^2)$`, R`$3x^2\sin(2x^2) + 2x^3\cos(2x^2)$`], answer: 0, explain: "Produkt: 3x² sin(2x²) + x³ · cos(2x²) · 4x." },
+                { type: "mc", q: R`Ableitung von $e^{2/x}$?`, options: [R`$e^{2/x}$`, R`$\frac{2}{x}e^{2/x}$`, R`$-\frac{2}{x^2}e^{2/x}$`, R`$\frac{2}{x^2}e^{2/x}$`], answer: 2, explain: "Innere Ableitung von 2/x ist −2/x²." },
+                { type: "mc", q: R`Ableitung von $\ln(x^2+1)$?`, options: [R`$\frac{1}{x^2+1}$`, R`$\frac{2x}{x^2+1}$`, R`$2x\ln(x^2+1)$`, R`$\frac{2}{x}$`], answer: 1, explain: "(ln g)' = g'/g = 2x/(x² + 1)." },
+                { type: "bug", q: "Finde den Fehler beim Ableiten von g(x) = x⁶ cos(3x⁴):", lines: ["u = x⁶, u' = 6x⁵", "v = cos(3x⁴)", "v' = sin(3x⁴) · 12x³", "g' = u'v + uv'", "g' = 6x⁵ cos(3x⁴) + 12x⁹ sin(3x⁴)"], answer: 2, explain: "(cos)' = −sin → v' = −12x³ sin(3x⁴). Dadurch ist auch die letzte Zeile falsch (Minus)." }
+              ],
+              sources: ["Foto: Analysis-Klausur (A3)", "Lösungen_Analysis_Klausur2.pdf (A3)"]
+            },
+            {
+              id: "ma1-a4-zws",
+              exam: "Analysis Aufgabe 4 · 7 P.",
+              title: "Nullstellen: Zwischenwertsatz & Monotonie",
+              minutes: 4, xp: 100,
+              tldr: R`f(x) = eˣ − 3x auf [0, 1]. Teil a: <b>mindestens</b> eine Nullstelle → Zwischenwertsatz (stetig + Vorzeichenwechsel). Teil b: <b>höchstens</b> eine → streng monoton (f' hat festes Vorzeichen). Zusammen: genau eine. Das ist reine Argumentation, die Formulierung bringt die Punkte.`,
+              core: [
+                { h: "a) Zwischenwertsatz (ZWS)" },
+                { list: [
+                  R`f ist <b>stetig</b> auf [0, 1] (Summe stetiger Funktionen) ← unbedingt hinschreiben!`,
+                  R`f(0) = 1 > 0, f(1) = e − 3 ≈ −0,2817 < 0`,
+                  R`→ Vorzeichenwechsel → nach ZWS mindestens eine Nullstelle in (0, 1)`
+                ]},
+                { h: "b) Monotonie" },
+                { list: [
+                  R`f'(x) = eˣ − 3 = 0 ⇔ x = ln 3 ≈ 1,0986 → liegt <b>außerhalb</b> von [0, 1]`,
+                  R`Für x ∈ [0, 1]: eˣ ≤ e < 3 → f'(x) < 0 → f streng monoton fallend`,
+                  R`Streng monoton → höchstens eine Nullstelle. Mit a) → <b>genau eine</b>`
+                ]}
+              ],
+              tips: [ { title: "Variante mit Polynom", body: R`f(x) = x³ + x − 1 auf [0, 1]: f(0) = −1, f(1) = 1 → ZWS. f'(x) = 3x² + 1 > 0 überall → streng steigend → genau eine Nullstelle.` } ],
+              traps: [
+                { title: "Falle: Stetigkeit nicht erwähnt", body: R`Der ZWS gilt nur für stetige Funktionen. Ohne diesen Satz fehlt die Voraussetzung, und damit ein Punkt.` },
+                { title: "Falle: „Zwei Nullstellen, weil f' = 0 bei ln 3“", body: R`ln 3 liegt außerhalb von I. Auf I ändert f' sein Vorzeichen nicht.` }
+              ],
+              checks: [
+                { type: "mc", q: "Welche Voraussetzung braucht der Zwischenwertsatz neben dem Vorzeichenwechsel?", options: ["Differenzierbarkeit", "Stetigkeit auf [a, b]", "Monotonie", "Beschränktheit"], answer: 1, explain: "Der ZWS setzt Stetigkeit auf dem abgeschlossenen Intervall voraus." },
+                { type: "mc", q: "f(x) = eˣ − 4x auf I = [0, 1]: f(0) = 1, f(1) ≈ −1,28. Wie viele Nullstellen hat f in I?", options: ["keine", "genau eine", "genau zwei", "unendlich viele"], answer: 1, explain: "ZWS → mindestens eine. f'(x) = eˣ − 4 = 0 bei ln 4 ≈ 1,386 > 1 → auf I streng fallend → genau eine." },
+                { type: "mc", q: "f(x) = x³ + x − 1 auf [0, 1]: Warum höchstens eine Nullstelle?", options: ["f(0) < 0", "f'(x) = 3x² + 1 > 0 → streng steigend", "f ist ein Polynom", "f(1) = 1"], answer: 1, explain: "Strenge Monotonie schließt eine zweite Nullstelle aus." },
+                { type: "order", q: "Bringe die Argumentation für „genau eine Nullstelle“ in die richtige Reihenfolge:", steps: ["f ist stetig auf I", "f(a) und f(b) haben verschiedene Vorzeichen", "ZWS → mindestens eine Nullstelle", "f' hat auf I keine Nullstelle / festes Vorzeichen", "f streng monoton → höchstens eine → genau eine"], explain: "Erst Existenz (ZWS), dann Eindeutigkeit (Monotonie)." }
+              ],
+              sources: ["Foto: Analysis-Klausur (A4)", "Lösungen_Analysis_Klausur2.pdf (A4)"]
+            },
+            {
+              id: "ma1-a5-kurvendiskussion",
+              exam: "Analysis Aufgabe 5 · 10 P.",
+              title: "Kurvendiskussion: D, Tangente, Extremum, Wendepunkt",
+              minutes: 6, xp: 130,
+              tldr: R`f(x) = (2x+4)√(x+3), und f' und f'' sind <b>schon gegeben</b>. Du musst also nichts ableiten, nur sauber argumentieren. Der Knackpunkt ist der Definitionsbereich: f gilt ab x ≥ −3, f' und f'' erst ab x > −3. Deshalb ist der Kandidat x = −10/3 für den Wendepunkt <b>ungültig</b>.`,
+              core: [
+                { p: R`$f(x) = (2x+4)\sqrt{x+3}$, $f'(x) = \frac{3x+8}{\sqrt{x+3}}$, $f''(x) = \frac{3x+10}{2(x+3)^{3/2}}$` },
+                { h: "a) Definitionsmenge" },
+                { p: R`Radikand ≥ 0: x + 3 ≥ 0 → $D_f = [-3, \infty)$. (f' und f'' nur für x > −3.)` },
+                { h: "b) Tangente bei x = 1" },
+                { math: R`t(x) = f(1) + f'(1)(x-1) = 12 + 5{,}5(x-1) = 5{,}5x + 6{,}5` },
+                { h: "c) Extrempunkt" },
+                { list: [
+                  R`Notwendig: f'(x) = 0 → 3x + 8 = 0 → x₀ = −8/3 ≈ −2,667 (liegt in x > −3 ✓)`,
+                  R`Hinreichend: f''(−8/3) = 2 / (2 · (1/3)^{3/2}) = 3√3 ≈ 5,196 <b>> 0</b> → <b>Minimum</b>`,
+                  R`y-Wert: f(−8/3) = (−4/3) · √(1/3) = −4√3/9 ≈ −0,770 → Tiefpunkt (−2,667 | −0,770)`
+                ]},
+                { h: "d) Wendepunkt" },
+                { list: [
+                  R`f''(x) = 0 → 3x + 10 = 0 → x = −10/3 ≈ −3,333 → <b>nicht</b> im Bereich x > −3`,
+                  R`Für x > −3 ist 3x + 10 > 1 > 0 und der Nenner > 0 → f'' > 0 überall`,
+                  R`Kein Vorzeichenwechsel → <b>kein Wendepunkt</b>, f ist durchgehend linksgekrümmt`
+                ]}
+              ],
+              tips: [ { title: "Tangentenformel auswendig", body: R`$t(x) = f(x_0) + f'(x_0)(x - x_0)$. Variante bei x₀ = 6: f(6) = 48, f'(6) = 26/3 → t(x) = 26/3 · (x − 6) + 48.` } ],
+              traps: [
+                { title: "Falle: x = −10/3 als Wendestelle", body: R`Der Kandidat liegt außerhalb von D. Wer das nicht prüft, „findet“ einen Wendepunkt, den es nicht gibt.` },
+                { title: "Falle: −3 aus D ausschließen", body: R`f(−3) = (−2) · √0 = 0 ist definiert, also gehört −3 zu D_f (eckige Klammer).` }
+              ],
+              checks: [
+                { type: "mc", q: "Was ist die maximale Definitionsmenge von f(x) = (2x+4)√(x+3)?", options: ["ℝ", "(−3, ∞)", "[−3, ∞)", "[−2, ∞)"], answer: 2, explain: "x + 3 ≥ 0. Bei x = −3 ist f(−3) = 0 definiert." },
+                { type: "mc", q: "Tangente an den Graphen bei x = 1?", options: ["t(x) = 12x", "t(x) = 5,5x + 6,5", "t(x) = 5,5x + 12", "t(x) = 11x + 1"], answer: 1, explain: "f(1) = 12, f'(1) = 11/2 → 12 + 5,5(x − 1) = 5,5x + 6,5." },
+                { type: "mc", q: "Tangente bei x = −2? (f(−2) = 0, f'(−2) = 2)", options: ["t(x) = 2x + 4", "t(x) = 2x − 4", "t(x) = −2x", "t(x) = 2x"], answer: 0, explain: "t(x) = 0 + 2(x + 2) = 2x + 4." },
+                { type: "mc", q: "Was ist bei x₀ = −8/3?", options: ["Hochpunkt, weil f''(x₀) < 0", "Tiefpunkt, weil f''(x₀) = 3√3 > 0", "Wendepunkt", "Sattelpunkt"], answer: 1, explain: "f'(x₀) = 0 und f''(x₀) > 0 → lokales Minimum." },
+                { type: "mc", q: "Hat der Graph einen Wendepunkt?", options: ["Ja, bei x = −10/3", "Ja, bei x = −8/3", "Nein, −10/3 liegt nicht in D und f'' > 0 überall", "Nein, weil f' keine Nullstelle hat"], answer: 2, explain: "Kein Vorzeichenwechsel von f'' im Definitionsbereich → kein Wendepunkt." }
+              ],
+              sources: ["Foto: Analysis-Klausur (A5)", "Lösungen_Analysis_Klausur2.pdf (A5)"]
+            }
+          ]
+        },
         { id: "ma2", title: "Mathematik II", icon: "∑", missions: [] },
         {
           id: "oop",
