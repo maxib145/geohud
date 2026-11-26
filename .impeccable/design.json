@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-26T16:32:35.141636+00:00",
+  "title": "Design System: GEO Lernskripte",
+  "extensions": {
+    "colorMeta": {
+      "night-bg": {
+        "role": "neutral",
+        "displayName": "Night Background",
+        "canonical": "#0F1117",
+        "tonalRamp": [
+          "#21242B",
+          "#393E4E",
+          "#4F5872",
+          "#657197",
+          "#8791AF",
+          "#ABB2C5",
+          "#CFD2DC",
+          "#F1F1F4"
+        ]
+      },
+      "night-sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar Night",
+        "canonical": "#13161E",
+        "tonalRamp": [
+          "#21242C",
+          "#383E4F",
+          "#4E5873",
+          "#637298",
+          "#8591B0",
+          "#AAB2C5",
+          "#CED2DC",
+          "#F0F1F4"
+        ]
+      },
+      "night-panel": {
+        "role": "neutral",
+        "displayName": "Panel Night",
+        "canonical": "#161A23",
+        "tonalRamp": [
+          "#21242C",
+          "#383F4F",
+          "#4E5973",
+          "#627399",
+          "#8592B0",
+          "#AAB3C6",
+          "#CED2DC",
+          "#F0F2F4"
+        ]
+      },
+      "night-hover": {
+        "role": "neutral",
+        "displayName": "Hover Night",
+        "canonical": "#1A1F2A",
+        "tonalRamp": [
+          "#20242C",
+          "#383F4F",
+          "#4D5974",
+          "#62739A",
+          "#8492B1",
+          "#AAB3C6",
+          "#CED2DC",
+          "#F0F2F4"
+        ]
+      },
+      "night-line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#1E222D",
+        "tonalRamp": [
+          "#21242B",
+          "#393F4D",
+          "#505971",
+          "#667396",
+          "#8892AE",
+          "#ACB2C4",
+          "#CFD2DB",
+          "#F1F1F4"
+        ]
+      },
+      "night-line-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "#2A3040",
+        "tonalRamp": [
+          "#21242B",
+          "#393F4E",
+          "#505971",
+          "#657296",
+          "#8792AF",
+          "#ABB2C4",
+          "#CFD2DC",
+          "#F1F1F4"
+        ]
+      },
+      "night-code": {
+        "role": "neutral",
+        "displayName": "Code Night",
+        "canonical": "#0B0D12",
+        "tonalRamp": [
+          "#20242C",
+          "#373E4F",
+          "#4D5874",
+          "#61719A",
+          "#8491B2",
+          "#A9B2C6",
+          "#CED2DD",
+          "#F0F1F4"
+        ]
+      },
+      "ink-primary": {
+        "role": "neutral",
+        "displayName": "Primary Ink",
+        "canonical": "#E6E8EE",
+        "tonalRamp": [
+          "#22242B",
+          "#3A3F4D",
+          "#515970",
+          "#677294",
+          "#8992AD",
+          "#ADB2C3",
+          "#CFD2DB",
+          "#F1F1F4"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Secondary Ink",
+        "canonical": "#B6BDCB",
+        "tonalRamp": [
+          "#22252A",
+          "#3B414C",
+          "#535C6E",
+          "#6A7792",
+          "#8B95AB",
+          "#AEB5C2",
+          "#D0D3DA",
+          "#F1F2F4"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "#8790A2",
+        "tonalRamp": [
+          "#232529",
+          "#3D414A",
+          "#565D6B",
+          "#6F798D",
+          "#8F97A7",
+          "#B0B5C0",
+          "#D1D4D9",
+          "#F1F2F3"
+        ]
+      },
+      "ink-dim": {
+        "role": "neutral",
+        "displayName": "Dim Ink",
+        "canonical": "#5D6577",
+        "tonalRamp": [
+          "#232529",
+          "#3D414A",
+          "#575D6B",
+          "#6F788C",
+          "#8F96A6",
+          "#B1B5BF",
+          "#D1D4D9",
+          "#F1F2F3"
+        ]
+      },
+      "lamp-blue": {
+        "role": "primary",
+        "displayName": "Lamp Blue",
+        "canonical": "#7AA2F7",
+        "tonalRamp": [
+          "#111E3C",
+          "#173370",
+          "#1846A9",
+          "#1458E7",
+          "#477CEF",
+          "#83A5ED",
+          "#BACBF1",
+          "#EBF0F9"
+        ]
+      },
+      "trap-red": {
+        "role": "secondary",
+        "displayName": "Trap Red",
+        "canonical": "#F7768E",
+        "tonalRamp": [
+          "#3C1019",
+          "#701727",
+          "#A91833",
+          "#E8143B",
+          "#EF4666",
+          "#ED8396",
+          "#F1B9C4",
+          "#FAEBEE"
+        ]
+      },
+      "merke-green": {
+        "role": "secondary",
+        "displayName": "Merke Green",
+        "canonical": "#9ECE6A",
+        "tonalRamp": [
+          "#27331A",
+          "#445D2A",
+          "#628A37",
+          "#80BA41",
+          "#9DCB6B",
+          "#B9D69A",
+          "#D6E5C5",
+          "#F2F6EE"
+        ]
+      },
+      "example-violet": {
+        "role": "secondary",
+        "displayName": "Example Violet",
+        "canonical": "#BB9AF7",
+        "tonalRamp": [
+          "#20113B",
+          "#37196E",
+          "#4C1BA6",
+          "#6018E3",
+          "#834AEC",
+          "#A985EB",
+          "#CDBBF0",
+          "#F0EBF9"
+        ]
+      },
+      "info-amber": {
+        "role": "secondary",
+        "displayName": "Info Amber",
+        "canonical": "#E0AF68",
+        "tonalRamp": [
+          "#362916",
+          "#644922",
+          "#966A2B",
+          "#CC8C2F",
+          "#D9A65C",
+          "#E0BF90",
+          "#EAD9C1",
+          "#F8F3ED"
+        ]
+      },
+      "day-bg": {
+        "role": "neutral",
+        "displayName": "Day Background",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#262626",
+          "#434343",
+          "#616161",
+          "#7E7E7E",
+          "#9B9B9B",
+          "#B8B8B8",
+          "#D5D5D5",
+          "#F2F2F2"
+        ]
+      },
+      "day-sidebar": {
+        "role": "neutral",
+        "displayName": "Day Sidebar",
+        "canonical": "#F8F9FB",
+        "tonalRamp": [
+          "#20242D",
+          "#363F51",
+          "#4A5977",
+          "#5D739E",
+          "#8192B5",
+          "#A8B3C8",
+          "#CDD2DE",
+          "#F0F2F4"
+        ]
+      },
+      "day-line": {
+        "role": "neutral",
+        "displayName": "Day Hairline",
+        "canonical": "#E6E8EC",
+        "tonalRamp": [
+          "#23252A",
+          "#3D414A",
+          "#555D6C",
+          "#6D788E",
+          "#8E97A8",
+          "#B0B5C0",
+          "#D1D4D9",
+          "#F1F2F3"
+        ]
+      },
+      "day-ink": {
+        "role": "neutral",
+        "displayName": "Day Ink",
+        "canonical": "#14161C",
+        "tonalRamp": [
+          "#22242A",
+          "#3B3F4C",
+          "#535A6E",
+          "#6A7492",
+          "#8B93AB",
+          "#AEB3C2",
+          "#D0D3DA",
+          "#F1F2F4"
+        ]
+      },
+      "day-blue": {
+        "role": "primary",
+        "displayName": "Day Blue",
+        "canonical": "#2F5BD3",
+        "tonalRamp": [
+          "#161F36",
+          "#233464",
+          "#2B4896",
+          "#305ACB",
+          "#5D7ED9",
+          "#91A6DF",
+          "#C1CCE9",
+          "#EDF0F8"
+        ]
+      },
+      "day-trap": {
+        "role": "secondary",
+        "displayName": "Day Trap Red",
+        "canonical": "#C7354F",
+        "tonalRamp": [
+          "#34181D",
+          "#602631",
+          "#903142",
+          "#C33951",
+          "#D26477",
+          "#DB95A2",
+          "#E7C3C9",
+          "#F7EEEF"
+        ]
+      },
+      "day-merke": {
+        "role": "secondary",
+        "displayName": "Day Merke Green",
+        "canonical": "#3C8A2E",
+        "tonalRamp": [
+          "#1E321A",
+          "#325C2A",
+          "#448938",
+          "#54B942",
+          "#7ACA6B",
+          "#A3D69A",
+          "#CAE5C6",
+          "#EFF6EE"
+        ]
+      },
+      "day-violet": {
+        "role": "secondary",
+        "displayName": "Day Example Violet",
+        "canonical": "#7B4FD0",
+        "tonalRamp": [
+          "#221834",
+          "#3A2660",
+          "#523190",
+          "#6839C3",
+          "#8964D2",
+          "#AD95DB",
+          "#CFC3E7",
+          "#F1EEF7"
+        ]
+      },
+      "day-amber": {
+        "role": "secondary",
+        "displayName": "Day Info Amber",
+        "canonical": "#A86A10",
+        "tonalRamp": [
+          "#3A2A12",
+          "#6D4B1A",
+          "#A46D1D",
+          "#E0901B",
+          "#E9A94C",
+          "#EAC186",
+          "#EFDABB",
+          "#F9F3EC"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Subject title (h1)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Chapter titles (h2)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sections within a chapter (h3)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text, max 740px column."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase group, callout, quiz and cheatsheet labels."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code blocks, code quiz lines, gap inputs."
+      }
+    },
+    "shadows": [
+      {
+        "name": "active-tab-ring",
+        "value": "0 0 0 1px var(--line2)",
+        "purpose": "Selected tab segment."
+      },
+      {
+        "name": "drawer-lift",
+        "value": "0 0 40px rgba(0,0,0,.4)",
+        "purpose": "Mobile sidebar drawer only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fade-up",
+        "value": "opacity 0 to 1, translateY(2px) to 0, .2-.25s",
+        "purpose": "Revealing Rechenweg steps and quiz feedback."
+      },
+      {
+        "name": "progress",
+        "value": "width .4s",
+        "purpose": "Reading-progress bar."
+      },
+      {
+        "name": "drawer",
+        "value": "transform .25s",
+        "purpose": "Mobile sidebar slide-in."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "toc-hidden",
+        "value": "1180px"
+      },
+      {
+        "name": "mobile",
+        "value": "880px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default action button (Rechenweg steps, chapter done).",
+      "html": "<button class=\"ds-btn\">Nächster Schritt</button>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-btn{font-family:var(--font);border:1px solid var(--line2);background:var(--hover);border-radius:7px;padding:8px 14px;font-size:13.5px;font-weight:500;color:var(--txt);cursor:pointer;transition:background-color .15s,border-color .15s,transform .08s} .ds-btn:hover{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,var(--hover))} .ds-btn:active{transform:translateY(1px)} .ds-btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one emphasised action in a block.",
+      "html": "<button class=\"ds-btn-pri\">Alle Schritte zeigen</button>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-btn-pri{font-family:var(--font);border:1px solid var(--acc);background:var(--acc);border-radius:7px;padding:8px 14px;font-size:13.5px;font-weight:600;color:#0F1117;cursor:pointer;transition:background-color .15s,transform .08s} .ds-btn-pri:hover{background:color-mix(in srgb,var(--acc) 86%,var(--txt))} .ds-btn-pri:active{transform:translateY(1px)} .ds-btn-pri:focus-visible{outline:2px solid var(--acc);outline-offset:2px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-priority utility (theme toggle, Übersicht).",
+      "html": "<button class=\"ds-ghost\">☀ Hell</button>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-ghost{font-family:var(--font);background:none;border:1px solid var(--line);border-radius:7px;padding:6px 10px;font-size:12px;color:var(--mut);cursor:pointer} .ds-ghost:hover{border-color:var(--line2);color:var(--txt)} .ds-ghost:focus-visible{outline:2px solid var(--acc);outline-offset:2px}"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Subject list with status dots; active item tinted Lamp Blue.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-grp\">3. Semester</div><a class=\"on\"><span class=\"ds-dot full\"></span>Ausgleichsrechnung</a><a><span class=\"ds-dot\"></span>Angewandte Vermessung</a><a><span class=\"ds-dot legacy\"></span>Mathematik I</a></nav>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-nav{background:var(--bg2);padding:8px;width:260px;font-family:var(--font)} .ds-grp{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:10px 10px 6px} .ds-nav a{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;color:var(--txt2);font-size:14px;cursor:pointer} .ds-nav a:hover{background:var(--hover)} .ds-nav a.on{background:var(--acc-bg);color:var(--txt)} .ds-dot{width:6px;height:6px;border-radius:50%;background:var(--line2)} .ds-dot.full{background:var(--acc)} .ds-dot.legacy{background:transparent;border:1px solid var(--line2)}"
+    },
+    {
+      "name": "Tabs",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Segmented switch between Lernskript and Cheatsheet.",
+      "html": "<div class=\"ds-tabs\"><button class=\"on\">Interaktives Lernskript</button><button>Klausur-Cheatsheet</button></div>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-tabs{display:inline-flex;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:3px;font-family:var(--font)} .ds-tabs button{border:none;background:none;padding:6px 12px;border-radius:6px;font-size:13px;color:var(--mut);cursor:pointer;font-family:inherit} .ds-tabs button.on{background:var(--panel);color:var(--txt);box-shadow:0 0 0 1px var(--line2)} .ds-tabs button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}"
+    },
+    {
+      "name": "Subject Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Overview card per subject with progress bar.",
+      "html": "<a class=\"ds-card\"><div class=\"t\">Ausgleichsrechnung</div><div class=\"m\">Modul 6018014</div><div class=\"bar\"><i style=\"width:40%\"></i></div></a>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-card{display:block;width:260px;border:1px solid var(--line2);border-radius:10px;padding:16px 18px;background:var(--hover);color:var(--txt);font-family:var(--font);cursor:pointer;transition:background-color .15s,border-color .15s,transform .08s} .ds-card:hover{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 8%,var(--hover))} .ds-card:active{transform:translateY(1px)} .ds-card .t{font-weight:600;font-size:15px} .ds-card .m{font-size:13px;color:var(--mut);margin-top:2px} .ds-card .bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:12px} .ds-card .bar i{display:block;height:100%;background:var(--acc)}"
+    },
+    {
+      "name": "Callout",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Meaning-coded note: def (blue), trap (red), merke (green), ex (violet), info (amber).",
+      "html": "<div class=\"ds-callout trap\"><div class=\"ct\">Klausurfalle</div><p>Vorzeichen der Verbesserung: v = L̂ − L, nicht umgekehrt.</p></div>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-callout{--c:#7AA2F7;--cb:rgba(122,162,247,.08);border:1px solid var(--line);border-left:3px solid var(--c);background:var(--cb);border-radius:8px;padding:12px 16px;max-width:520px;font-family:var(--font);color:var(--txt2)} .ds-callout.trap{--c:#F7768E;--cb:rgba(247,118,142,.08)} .ds-callout.merke{--c:#9ECE6A;--cb:rgba(158,206,106,.08)} .ds-callout.ex{--c:#BB9AF7;--cb:rgba(187,154,247,.08)} .ds-callout.info{--c:#E0AF68;--cb:rgba(224,175,104,.08)} .ds-callout .ct{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--c);margin-bottom:4px} .ds-callout p{margin:6px 0}"
+    },
+    {
+      "name": "Quiz Option",
+      "kind": "custom",
+      "refersTo": "quiz-option",
+      "description": "Multiple-choice answer row with correct/wrong states.",
+      "html": "<div class=\"ds-opts\"><button class=\"ds-opt\">Ω = vᵀPv wird minimal</button><button class=\"ds-opt ok\">Richtig markiert</button><button class=\"ds-opt bad\">Falsch markiert</button></div>",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-opts{display:grid;gap:6px;max-width:480px;background:var(--panel);padding:14px;font-family:var(--font)} .ds-opt{text-align:left;border:1px solid var(--line2);background:var(--hover);border-radius:8px;padding:11px 14px;font-size:14.5px;color:var(--txt);cursor:pointer;font-family:inherit;transition:background-color .15s,border-color .15s,transform .08s} .ds-opt:hover{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--hover))} .ds-opt:active{transform:translateY(1px)} .ds-opt:focus-visible{outline:2px solid var(--acc);outline-offset:1px} .ds-opt.ok{border-color:var(--ok);background:rgba(158,206,106,.08)} .ds-opt.bad{border-color:var(--bad);background:rgba(247,118,142,.08);color:var(--txt2)}"
+    },
+    {
+      "name": "Gap Input",
+      "kind": "input",
+      "refersTo": "input-gap",
+      "description": "Fill-in-the-gap answer field (mono).",
+      "html": "<input class=\"ds-input\" placeholder=\"Ergebnis\">",
+      "css": ":host{--bg:#0F1117;--bg2:#13161E;--panel:#161A23;--hover:#1A1F2A;--line:#1E222D;--line2:#2A3040;--txt:#E6E8EE;--txt2:#B6BDCB;--mut:#8790A2;--dim:#5D6577;--acc:#7AA2F7;--acc-bg:rgba(122,162,247,.10);--ok:#9ECE6A;--bad:#F7768E;--code-bg:#0B0D12;--font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace} .ds-input{background:var(--bg);border:1px solid var(--line2);border-radius:7px;padding:7px 10px;color:var(--txt);font-family:var(--mono);font-size:14px;width:150px} .ds-input:focus{outline:none;border-color:var(--acc)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Desk",
+    "overview": "**Creative North Star: \"The Night Desk\"**\n\nA quiet, dark study desk for long, focused sessions at a laptop. The page is a lamp-lit sheet of content, and everything around it (sidebar, top bar, table of contents) sinks into near-black so the text, formulas and worked solutions carry the light. Nothing on screen competes with the material: no decorative imagery, no gradients, no gamified chrome. Colour shows up only to tell you something.\n\nThe structure follows a docs reader: a subject sidebar on the left, a single readable column in the middle, and a sticky scrollspy table of contents on the right. Density is moderate. Long-form text gets generous line height, while tables, cheatsheets and quiz blocks tighten up. A light theme (\"Hell\") mirrors every token for daylight, and a dedicated print mode turns the cheatsheet into a dense two-column A4 sheet.",
+    "keyCharacteristics": [
+      "Dark by default (`data-theme=\"dark\"`), with a full light mirror and a separate print palette.",
+      "One UI accent (Lamp Blue). Four further colours are reserved for callout meanings.",
+      "Layering comes from tonal steps and 1px lines, not shadows.",
+      "Inter for reading, JetBrains Mono for code; KaTeX math sits inline with the text.",
+      "The printed A4 cheatsheet is a first-class output with its own type scale."
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Colour Rule",
+        "body": "Red, green, violet and amber always carry their meaning (trap, merke/correct, example/worked solution, info) and are never used decoratively. Blue is the UI accent and also means Definition. A new feature that needs colour uses Lamp Blue or the neutrals.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mirror Rule",
+        "body": "Every colour token has a light-theme counterpart and a print value. A new token isn't finished until all three exist.",
+        "section": "colors"
+      },
+      {
+        "name": "The Plain Heading Rule",
+        "body": "Headings contain no formulas; the TOC is generated from them.",
+        "section": "typography"
+      },
+      {
+        "name": "The Print Scale Rule",
+        "body": "The print cheatsheet has its own scale (body 8.2px, section titles 9px, code 7.8px). Screen sizes never leak into print.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Rule",
+        "body": "Containers are separated by 1px lines and one tonal step, never by drop shadows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Pressable Rule",
+        "body": "Everything clickable sits on the hover-night fill with a strong hairline at rest. Hover adds a Lamp Blue border and a 8–14% Lamp Blue tint. Press moves it down 1px. Keyboard focus shows a 2px Lamp Blue outline with 2px offset. Transitions run 0.15s on colour and 0.08s on the press.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** keep Lamp Blue as the single UI accent, and keep each signal colour tied to its callout meaning (The Semantic Colour Rule).",
+      "**Do** separate surfaces with one tonal step plus a 1px hairline (The Hairline Rule).",
+      "**Do** keep the reading column at 740px or less, with body text at 16px and 1.65 line height.",
+      "**Do** give every new token a light-theme and a print value (The Mirror Rule).",
+      "**Do** give every new clickable element the Pressable Rule's fill, hover tint, 1px press and focus outline."
+    ],
+    "donts": [
+      "**Don't** use red, green, violet or amber for decoration, emphasis or branding.",
+      "**Don't** add drop shadows to cards or panels; the drawer lift is the only large shadow.",
+      "**Don't** put formulas in headings (The Plain Heading Rule).",
+      "**Don't** reintroduce gamified chrome (XP, levels, mission HUD); the docs reader replaced it on 2026-11-26.",
+      "**Don't** let screen type sizes into the print cheatsheet (The Print Scale Rule)."
+    ]
+  }
+}

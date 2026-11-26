@@ -2,7 +2,7 @@
    "legacy" = vorläufig aus studyData.js, "todo" = noch leer.
    Neues Fach: Eintrag ergänzen + content/<id>.js anlegen. IDs nie ändern (Lesefortschritt). */
 window.SUBJECTS = {
-  version: "2026-11-26.7",
+  version: "2026-11-26.8",
   groups: [
     { id: "sem3", label: "3. Semester" },
     { id: "nach", label: "Nachholfächer" }
