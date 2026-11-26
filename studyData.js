@@ -24,7 +24,7 @@
 const R = String.raw;
 
 window.STUDY_DATA = {
-  version: "2026-11-26.2",
+  version: "2026-11-26.3",
 
   levels: [
     { xp: 0,    name: "Kadett" },
@@ -691,6 +691,229 @@ print(a)       # -> [1, 2, 3]`, lang: "python" }
                 "GoodNotes: Mitschrift.pdf (Lernfragen VermKatG)",
                 "E-Learning Kurs 33000: 4. Aufbau der Vermessungsverwaltung, 8. Katastervermessungen",
                 "Deine Klausureinsicht-Notizen: Katastervermessung (!) → Akten, Abmarkung, Wer?, (freie) Stationierung"
+              ]
+            },
+            /* ---------------------------------------------------------- */
+            {
+              id: "lm1-07-grundbuch",
+              title: "Grundbuch & dingliche Rechte: Abteilung I, II, III",
+              minutes: 6,
+              xp: 120,
+              tldr: R`Das Liegenschaftskataster sagt dir, <b>wo</b> und <b>wie groß</b> ein Grundstück ist. Das Grundbuch sagt, <b>wem</b> es gehört und <b>wer noch Rechte daran hat</b>. Stell dir das Grundbuchblatt wie einen Spielerpass vor: Bestandsverzeichnis = Stammdaten, Abt. I = Besitzer, Abt. II = Lasten (Leitungsrecht, Nießbrauch …), Abt. III = die Bank (Grundschuld, Hypothek). In der LIKA-Übung kam immer wieder die Frage „Welches Recht, in welche Abteilung?“.`,
+              core: [
+                { h: "Öffentliches Recht vs. Privatrecht" },
+                { table: { head: ["", "Öffentliches Recht", "Privatrecht"], rows: [
+                  ["Verhältnis", "Über-/Unterordnung (Staat ↔ Bürger)", "Gleichordnung der Bürger"],
+                  ["Handeln", "Verwaltungsakt", "Rechtsgeschäft (Vertrag)"],
+                  ["Beispiele", "Bauantrag, Verwarnung, Abmarkung", "Baumaterialbestellung, Rechtsberatung, Grenzfeststellungsvertrag"]
+                ]}},
+                { p: R`<b>Verwaltungsakt</b> (Art. 35 BayVwVfG), 5 Merkmale: <b>Behörde</b> · <b>hoheitliche Maßnahme</b> auf dem Gebiet des öffentlichen Rechts · <b>Regelung</b> · eines <b>Einzelfalls</b> · mit <b>Außenwirkung</b>. Aufbau: Bescheid, Begründung, Rechtsbehelfsbelehrung. Gegen einen VA: Widerspruch innerhalb 1 Monat (in der Vermessungsverwaltung weggefallen → direkt Klage).` },
+                { h: "Eigentum, Besitz & BGB" },
+                { list: [
+                  R`BGB in 5 Büchern: Allgemeiner Teil, Schuldrecht, <b>Sachenrecht</b>, Familienrecht, Erbrecht`,
+                  R`<b>Eigentum</b> = rechtliche Herrschaft · <b>Besitz</b> = tatsächliche Herrschaft (der Mieter besitzt, der Vermieter ist Eigentümer)`,
+                  R`<b>Wesentliche Bestandteile</b> (§§ 93 ff.: Gebäude, Pflanzen) teilen das Schicksal des Grundstücks. <b>Zubehör</b> (§ 97: z. B. Maschinen in der Mühle) ist beweglich und keine Bestandteile`,
+                  R`<b>Wohnungseigentum</b> (WEG): Sondereigentum + Miteigentumsanteil, braucht Abgeschlossenheitsbescheinigung und Aufteilungsplan, eigenes Wohnungsgrundbuch`,
+                  R`<b>Erbbaurecht</b>: Recht zu bauen auf fremdem Grund (meist 99 oder 75 Jahre), Erbbauzins, 1. Rang auf dem belasteten Blatt + eigenes Erbbaugrundbuch`
+                ]},
+                { h: "Beschränkt dingliche Rechte" },
+                { table: { head: ["Recht", "subjektiv dinglich (hängt am Grundstück)", "subjektiv persönlich (hängt an Person)"], rows: [
+                  ["Grunddienstbarkeit (z. B. Wegerecht)", "✓", ""],
+                  ["Beschränkt persönliche Dienstbarkeit (z. B. Leitungsrecht für Stadtwerke)", "", "✓"],
+                  ["Nießbrauch", "", "✓"],
+                  ["Vorkaufsrecht", "✓", "✓"],
+                  ["Reallast", "✓", "✓"],
+                  ["Grundpfandrechte", "Hypothek: akzessorisch", "Grundschuld: nicht akzessorisch"]
+                ]}},
+                { p: R`Nach Inhalt: <b>Nutzungsrechte</b> (Dienstbarkeiten), <b>Verwertungsrechte</b> (Grundpfandrechte), <b>Erwerbsrechte</b> (Vorkaufsrecht). Öffentlich-rechtliche Lasten (Erschließungsbeiträge, gesetzliche Vorkaufsrechte der Gemeinde) stehen <b>nicht</b> im Grundbuch.` },
+                { h: "Aufbau eines Grundbuchblatts" },
+                { table: { head: ["Teil", "Inhalt"], rows: [
+                  ["Aufschrift", "Amtsgericht, Gemarkung (Grundbuchbezirk), Blattnummer"],
+                  ["Bestandsverzeichnis", "Gemarkung, Flurstücksnummer, Lage, Wirtschaftsart, Größe (aus dem Kataster), grundstücksgleiche Rechte"],
+                  ["Abteilung I", "Eigentümer + Grundlage des Erwerbs (z. B. Auflassung)"],
+                  ["Abteilung II", "Lasten und Beschränkungen: alle beschränkt dinglichen Rechte <b>außer</b> Grundpfandrechten"],
+                  ["Abteilung III", "Grundpfandrechte: Hypothek, Grundschuld, Rentenschuld"]
+                ]}},
+                { list: [
+                  R`Gleiche Abteilung → die <b>Reihenfolge der Eintragung</b> bestimmt den Rang`,
+                  R`<b>Öffentlicher Glaube</b>: Vermutung der Richtigkeit des Grundbuchs`,
+                  R`Einsicht nur bei <b>berechtigtem Interesse</b>`,
+                  R`<b>Rötung ≠ Löschung</b>: maßgeblich ist der Löschungsvermerk`,
+                  R`Realfolium (§ 3 GBO: ein Blatt je Grundstück, Regelfall) vs. Personalfolium (§ 4: mehrere Grundstücke eines Eigentümers)`,
+                  R`Seit 01.10.1910 ist das Grundbuch für ganz Bayern angelegt`
+                ]},
+                { h: "Flurstück vs. Grundstück" },
+                { table: { head: ["", "Liegenschaftskataster", "Grundbuch"], rows: [
+                  ["Einheit", "Flurstück (eigene Nummer in der Flurkarte)", "Grundstück (eigene Nummer im Bestandsverzeichnis)"],
+                  ["aus 1 mach 2", "<b>Zerlegung</b>", "<b>Teilung</b>"],
+                  ["aus 2 mach 1", "<b>Verschmelzung</b>", "<b>Vereinigung</b>"],
+                  ["Aufgabe", "örtlicher Bezug, amtliches Verzeichnis (§ 2 (2) GBO)", "Eigentum, Rechte Dritter, Rang"]
+                ]}},
+                { note: R`Ein Grundstück kann aus mehreren Flurstücken bestehen, aber ein Flurstück nie aus mehreren Grundstücken.` }
+              ],
+              tips: [
+                { title: "Klausur-Muster aus der LIKA-Übung", body: R`Nachbar will seinen Abwasserkanal sichern → <b>Leitungsrecht</b> (Dienstbarkeit) in <b>Abt. II</b>. Bank will das Darlehen sichern → <b>Grundpfandrecht</b> in <b>Abt. III</b>.` },
+                { title: "Hypothek vs. Grundschuld", body: R`Die Hypothek ist <b>akzessorisch</b>, sie existiert nur so lange wie die Forderung. Die Grundschuld ist davon unabhängig, deshalb nehmen Banken heute fast immer die Grundschuld.` }
+              ],
+              traps: [
+                { title: "Falle: Grundschuld in Abt. II", body: R`Alle Grundpfandrechte stehen in Abt. III. Abt. II hat alles andere (Dienstbarkeiten, Nießbrauch, Vorkaufsrecht, Reallast, Auflassungsvormerkung …).` },
+                { title: "Falle: Gerötet = gelöscht", body: R`Rötung hat keine rechtliche Wirkung. Ohne Löschungsvermerk besteht das Recht weiter.` },
+                { title: "Falle: Zerlegung im Grundbuch", body: R`Zerlegung und Verschmelzung passieren im <b>Kataster</b>, Teilung und Vereinigung im <b>Grundbuch</b>.` }
+              ],
+              checks: [
+                { type: "mc", q: "Der Nachbar möchte, dass sein Abwasserkanal unter deinem Grundstück dinglich gesichert wird. Was wird wo eingetragen?", options: ["Vorkaufsrecht in Abt. II", "Leitungsrecht (Dienstbarkeit) in Abt. II", "Grundschuld in Abt. III", "Leitungsrecht in Abt. III"], answer: 1, explain: "Dienstbarkeiten stehen in Abt. II. Abt. III ist nur für Grundpfandrechte." },
+                { type: "mc", q: "Die Bank finanziert den Hallenbau und will sich absichern. Welches Recht, welche Abteilung?", options: ["Nießbrauch, Abt. II", "Grundpfandrecht, Abt. III", "Grundpfandrecht, Abt. I", "Reallast, Abt. II"], answer: 1, explain: "Grundschuld oder Hypothek → Abt. III." },
+                { type: "mc", q: "Welches Recht ist IMMER subjektiv dinglich, hängt also am Grundstück und nicht an einer Person?", options: ["Nießbrauch", "Beschränkt persönliche Dienstbarkeit", "Grunddienstbarkeit", "Grundschuld"], answer: 2, explain: "Die Grunddienstbarkeit steht dem jeweiligen Eigentümer des herrschenden Grundstücks zu." },
+                { type: "mc", q: "Ein Recht ist im Grundbuch rot unterstrichen, aber es gibt keinen Löschungsvermerk. Besteht es noch?", options: ["Nein, gerötet heißt gelöscht", "Ja, maßgeblich ist der Löschungsvermerk", "Nur wenn der Notar zustimmt", "Nur in Abt. III"], answer: 1, explain: "Die Rötung dient nur der Übersicht, sie hat keine rechtliche Wirkung." },
+                { type: "mc", q: "Aus einem Flurstück werden zwei. Wie heißt das im Kataster?", options: ["Teilung", "Zerlegung", "Vereinigung", "Verschmelzung"], answer: 1, explain: "Kataster: Zerlegung/Verschmelzung. Grundbuch: Teilung/Vereinigung." },
+                { type: "mc", q: "Was ist KEIN Merkmal eines Verwaltungsakts?", options: ["Regelung eines Einzelfalls", "Wirkung nach außen", "Gleichordnung der Beteiligten", "Handeln einer Behörde"], answer: 2, explain: "Gleichordnung ist typisch für das Privatrecht. Der VA ist hoheitlich (Über-/Unterordnung)." },
+                { type: "order", q: "Ordne den Aufbau eines Grundbuchblatts von vorne nach hinten:", steps: ["Aufschrift (Amtsgericht, Gemarkung, Blatt)", "Bestandsverzeichnis (Flurstücke, Größe, Lage)", "Abteilung I (Eigentümer)", "Abteilung II (Lasten und Beschränkungen)", "Abteilung III (Grundpfandrechte)"], explain: "Aufschrift → Bestandsverzeichnis → Abt. I → II → III." }
+              ],
+              sources: [
+                "GoodNotes: 2. Landmanagement.pdf (= Liegenschaftskataster) – Kap. 1 Öff. Recht/Privatrecht, Kap. 2 Dingliche Rechte (Zuordnungstabelle S. 29), Kap. 3 Grundbuch",
+                "iCloud: 09_Lösung.pdf (LIKA-Übung Aufgabe 1e–i, 5)",
+                "E-Learning Kurs 33000: LIKA 1–3"
+              ]
+            },
+            /* ---------------------------------------------------------- */
+            {
+              id: "lm1-08-raumplanung",
+              title: "Raumplanung: LEP, Regionalplan, FNP & Aufstellungsverfahren",
+              minutes: 6,
+              xp: 120,
+              tldr: R`Raumplanung funktioniert wie eine Liga-Pyramide: Der Bund gibt Leitbilder vor, Bayern das LEP, die 18 Regionen den Regionalplan, die Gemeinde FNP und B-Plan, und ganz unten baut der Bauherr. Jede Ebene muss sich an die darüber anpassen, und die unteren werden von oben angehört (<b>Gegenstromprinzip</b>). Zur Klausur gehört auch das Aufstellungsverfahren eines Bauleitplans in Schritten.`,
+              core: [
+                { h: "Planungsebenen" },
+                { table: { head: ["Instrument", "Gebiet", "Träger"], rows: [
+                  ["Raumordnung des Bundes (ROG, MKRO)", "Deutschland", "Bund (Leitbilder)"],
+                  ["Landesentwicklungsprogramm (LEP)", "Bundesland", "Freistaat Bayern"],
+                  ["Regionalplan", "Region (18 in Bayern)", "Regionaler Planungsverband"],
+                  ["Flächennutzungsplan", "Gemeinde", "Kommune"],
+                  ["Bebauungsplan", "Teil des Gemeindegebiets", "Kommune"],
+                  ["Bauvorhaben", "Grundstück", "Bauherr/in"]
+                ]}},
+                { p: R`Die EU plant nicht rechtsverbindlich (zu heterogen), steuert aber über Fördermittel (EFRE, ESF+ …).` },
+                { h: "Landesentwicklungsprogramm (LEP, aktuell LEP 2023)" },
+                { list: [
+                  R`Gesamtkonzept der Staatsregierung für ca. <b>10 Jahre</b>. Grundlage: ROG + Bayerisches Landesplanungsgesetz (BayLplG)`,
+                  R`<b>Ziele</b> = Beachtenspflicht (verbindlich) · <b>Grundsätze</b> = Berücksichtigungspflicht (in der Abwägung)`,
+                  R`Teil A überfachlich (Raumstruktur, <b>zentrale Orte</b>), Teil B fachlich (Verkehr, Wirtschaft, Energie …)`,
+                  R`Zweck: Disparitäten Stadt/Land abbauen, Fachbereiche koordinieren, Rahmen für Regionalplanung setzen`
+                ]},
+                { table: { head: ["Landesplanungsbehörde", "Wer?"], rows: [
+                  ["Oberste", "Staatsministerium für Wirtschaft, Landesentwicklung und Energie"],
+                  ["Höhere", "Bezirksregierung (mit dem/der Regionsbeauftragten)"],
+                  ["Untere", "Kreisverwaltungsbehörde (Landratsamt, kreisfreie Stadt)"]
+                ]}},
+                { h: "Regionalplan" },
+                { p: R`Konkretisiert das LEP für eine von <b>18 Regionen</b> (Würzburg = Region 2). Träger ist der <b>Regionale Planungsverband</b> (alle Kommunen der Region: Verbandsversammlung, Planungsausschuss, Vorsitz). Die fachliche Arbeit macht der/die <b>Regionsbeauftragte</b> an der Bezirksregierung.` },
+                { h: "Flächennutzungsplan (§ 5 BauGB)" },
+                { list: [
+                  R`Vorbereitender Bauleitplan, <b>ganzes Gemeindegebiet</b>, Zielhorizont <b>10–15 Jahre</b>`,
+                  R`<b>Anpassungsgebot</b>: Bauleitpläne sind den Zielen der Raumordnung anzupassen`,
+                  R`Inhalt nach § 5 (2) „insbesondere“ (<b>nicht</b> abschließend), der B-Plan nach § 9 (1) ist dagegen abschließend`,
+                  R`<b>Nachrichtliche Übernahmen</b>: Wasserschutz-, Natur-/Landschaftsschutzgebiete, Biotopkartierung, Leitungen`,
+                  R`Bestandteile: Planzeichnung + Legende, Begründung, Umweltbericht`
+                ]},
+                { h: "Aufstellungsverfahren eines Bauleitplans" },
+                { p: R`1 Aufstellungsbeschluss (Gemeinderat, ortsüblich bekannt machen) → 2 Vorentwurf (mit Umweltbericht) → 3 frühzeitige Beteiligung von Öffentlichkeit und Behörden/TöB → 4 Abwägung → 5 Billigungs- und Auslegungsbeschluss → 6 öffentliche Auslegung (<b>1 Monat</b>) → 7 Behandlung der Stellungnahmen → 8 ggf. erneute Auslegung → 9 Feststellungsbeschluss (FNP) bzw. Satzungsbeschluss (B-Plan) → 10 Genehmigung, falls nötig (fiktiv nach <b>3 Monaten</b>) → 11 Ausfertigung und Bekanntmachung. Dauer etwa 1 Jahr.` },
+                { table: { head: ["Sonderverfahren", "Wann?", "Erleichterung"], rows: [
+                  ["Vereinfacht (§ 13)", "Grundzüge der Planung unberührt, Lückenschließung", "kein Umweltbericht, keine frühzeitige Beteiligung, verkürzte Auslegung"],
+                  ["Beschleunigt (§ 13a)", "Innenentwicklung, < 20.000 m² Grundfläche (bis 70.000 m² mit Vorprüfung)", "wie § 13. Unter 20.000 m² <b>keine Eingriffsregelung</b>"]
+                ]}},
+                { h: "Entwicklungsstufen von Land" },
+                { table: { head: ["Stufe", "Auslöser", "Wert (zu baureifem Land)"], rows: [
+                  ["Agrarland", "–", "< 10 %"],
+                  ["Bauerwartungsland", "FNP", "25–50 %"],
+                  ["Rohbauland", "B-Plan", "50–80 %"],
+                  ["Baureifes Land", "Umlegung + Erschließung", "100 %"]
+                ]}}
+              ],
+              tips: [
+                { title: "Ziele vs. Grundsätze", body: R`Merksatz: <b>Ziele</b> muss man <b>beachten</b> (keine Abwägung möglich), <b>Grundsätze</b> muss man <b>berücksichtigen</b> (in die Abwägung einstellen, können überwunden werden).` },
+                { title: "Planungshoheit", body: R`Warum plant die Gemeinde? Wegen der kommunalen Selbstverwaltung (Art. 28 II GG, Art. 11 II BV) mit der <b>Planungshoheit</b>.` }
+              ],
+              traps: [
+                { title: "Falle: Regionalplan macht der Bezirk", body: R`Träger ist der <b>Regionale Planungsverband</b>. Die Bezirksregierung stellt nur den/die Regionsbeauftragte/n (fachliche Vorarbeit).` },
+                { title: "Falle: FNP ist eine Satzung", body: R`Der FNP wird per einfachem Gemeinderatsbeschluss festgestellt (behördenverbindlich). Satzung ist nur der B-Plan.` }
+              ],
+              checks: [
+                { type: "mc", q: "Wer ist Träger des Regionalplans in Bayern?", options: ["Bezirksregierung", "Regionaler Planungsverband", "Landratsamt", "Staatsministerium für Wirtschaft"], answer: 1, explain: "Der Regionale Planungsverband (alle Kommunen der Region). Die Regionsbeauftragten sitzen an der Bezirksregierung." },
+                { type: "mc", q: "Was unterscheidet ein ZIEL von einem GRUNDSATZ im LEP?", options: ["Ziele sind Empfehlungen", "Ziele haben Beachtenspflicht, Grundsätze Berücksichtigungspflicht", "Grundsätze sind verbindlicher als Ziele", "Es gibt keinen Unterschied"], answer: 1, explain: "Ziele sind verbindlich, Grundsätze gehen in die Abwägung ein." },
+                { type: "mc", q: "Für welchen Zeitraum plant ein Flächennutzungsplan typischerweise?", options: ["2–3 Jahre", "10–15 Jahre", "50 Jahre", "unbegrenzt"], answer: 1, explain: "Der FNP ist ein Zielplan für die nächsten 10–15 Jahre." },
+                { type: "order", q: "Bringe das Aufstellungsverfahren eines B-Plans in die richtige Reihenfolge:", steps: ["Aufstellungsbeschluss", "Vorentwurf mit Umweltbericht", "Frühzeitige Beteiligung", "Billigungs- und Auslegungsbeschluss", "Öffentliche Auslegung (1 Monat)", "Satzungsbeschluss", "Ausfertigung und Bekanntmachung"], explain: "Die Abwägung liegt zwischen der Beteiligung und dem Beschluss. Die Genehmigung kommt nur, falls sie nötig ist." },
+                { type: "mc", q: "Ein B-Plan der Innenentwicklung mit 15.000 m² Grundfläche im beschleunigten Verfahren (§ 13a). Brauchst du die Eingriffsregelung?", options: ["Ja, immer", "Nein, unter 20.000 m² entfällt sie", "Nur bei GRZ > 0,3", "Nur im Außenbereich"], answer: 1, explain: "Unter 20.000 m² Grundfläche entfällt im § 13a-Verfahren die Eingriffsregelung." },
+                { type: "mc", q: "Welche Behörde ist die OBERSTE Landesplanungsbehörde in Bayern?", options: ["StMELF", "Staatsministerium für Wirtschaft, Landesentwicklung und Energie", "LDBV", "Bezirksregierung"], answer: 1, explain: "Das Wirtschaftsministerium. Das StMELF ist für die Ländliche Entwicklung zuständig." }
+              ],
+              sources: [
+                "GoodNotes: 1. Städtebauliche Planung.pdf – Einführung, Planungsebenen, LEP, Regionalplan, Bauleitplanung, FNP",
+                "GoodNotes: Mitschrift.pdf (Lernskript Städtebauliche Planung)",
+                "iCloud: 2_Übungsaufgaben_Lösung.pdf (Aufgaben 1–9)",
+                "E-Learning Kurs 33000: SBP 1–5"
+              ]
+            },
+            /* ---------------------------------------------------------- */
+            {
+              id: "lm1-09-plan41-abschluss",
+              title: "Wege- und Gewässerplan (§ 41), Flurbereinigungsplan & Abschluss",
+              minutes: 5,
+              xp: 110,
+              tldr: R`Das ist die zweite Halbzeit der Flurneuordnung. Erst wird mit dem <b>Plan nach § 41</b> festgelegt, wo Wege, Gräben und Hecken hinkommen (Spielfeld bauen). Am Ende fasst der <b>Flurbereinigungsplan</b> alles zusammen, die <b>Ausführungsanordnung</b> setzt den neuen Rechtszustand in Kraft (Abpfiff, das Ergebnis zählt), und die <b>Schlussfeststellung</b> beendet das Verfahren.`,
+              core: [
+                { h: "Wege- und Gewässerplan mit landschaftspflegerischem Begleitplan (§ 41 FlurbG)" },
+                { list: [
+                  R`Plan über die <b>gemeinschaftlichen</b> (Wege, Gräben, Wasserrückhaltung, Bodenschutz, Landschaftspflege) und <b>öffentlichen</b> Anlagen (öffentlicher Verkehr, Ver- und Entsorgung, Erholung)`,
+                  R`Aufgestellt von der <b>TG</b> (übertragene Aufgabe, Art. 2 AGFlurbG), geprüft vom <b>ALE</b> als oberer Flurbereinigungsbehörde`,
+                  R`<b>Plangenehmigung</b> ohne Einwendungen · <b>Planfeststellung</b> bei Einwendungen (Abwägung, ggf. Auflagen)`,
+                  R`Inhalt: <b>Karte</b> + <b>Textteil</b> (Erläuterungsbericht, Anlagen- und Maßnahmenverzeichnis)`
+                ]},
+                { p: R`Wasserwirtschaft früher: entwässern (Gräben, Dränagen). Seit 1984, als der Naturschutz per Volksentscheid in die Bayerische Verfassung kam: Wasser in der Fläche halten, Renaturierung, Uferstreifen, Hochwasserschutz.` },
+                { h: "Bodenschutz: Allgemeine Bodenabtragsgleichung" },
+                { math: R`A = R \cdot K \cdot L \cdot S \cdot C \cdot P` },
+                { table: { head: ["Faktor", "Bedeutung", "beeinflussbar?"], rows: [
+                  ["R", "Regen", "nein"],
+                  ["K", "Bodenerodierbarkeit", "kaum"],
+                  ["L", "Hanglänge", "über die Flurbereinigung (Schlaggestaltung)"],
+                  ["S", "Hangneigung", "nein"],
+                  ["C", "Bewirtschaftung, Fruchtfolge", "ja"],
+                  ["P", "Erosionsschutz (quer zum Hang)", "ja"]
+                ]}},
+                { p: R`Ideal-Schlag: <b>≥ 10 ha</b>, Rechteck <b>4:1 bis 6:1</b>, keine spitzen Ecken, beidseitig erschlossen. Bodenneubildung ca. 0,1 mm/Jahr, deshalb ist Bodenabtrag irreversibel.` },
+                { h: "Flurbereinigungsplan (§ 58 FlurbG)" },
+                { p: R`Fasst <b>alle Ergebnisse</b> zusammen und ist die Grundlage zur Berichtigung von Kataster und Grundbuch. Kartenteil: Bestandskarte (alt), Karte zum Plan § 41, Abfindungskarte (neu). Nachweise: Forderungsliste, Abfindungs- und Belastungsnachweise. Textteil: Wertermittlung, Vorstandsbeschlüsse, <b>Kostenverteilungsplan</b>, Widmungen.` },
+                { table: { head: ["Kosten", "Wer trägt?"], rows: [
+                  ["Verfahrenskosten (§ 104), z. B. Personal des ALE", "Freistaat Bayern"],
+                  ["Ausführungskosten (§ 105), z. B. Wegebau", "TG (mit Zuschüssen, Beiträgen der Teilnehmer, vorläufig €/ha alt, endgültig €/WVZ bzw. €/ha neu)"]
+                ]}},
+                { p: R`Bekanntmachung, jeder Teilnehmer bekommt einen Auszug (Einlage ↔ Abfindung) und eine Ladung zum <b>Anhörungstermin</b>. Widerspruch schriftlich innerhalb <b>14 Tagen</b> nach dem Termin.` },
+                { h: "Ausführungsanordnung (§ 61) & Schlussfeststellung (§ 149)" },
+                { list: [
+                  R`Voraussetzung: Flurbereinigungsplan ist <b>unanfechtbar</b>. Ausnahme: vorzeitige Ausführungsanordnung (§ 63)`,
+                  R`Am Stichtag tritt die Abfindung an die Stelle der Einlage (<b>Surrogation</b>). Grundbuch und Kataster werden unrichtig, das ALE ist so lange grundbuch- und katasterführende Behörde`,
+                  R`Danach berichtigen Grundbuchamt und ADBV ihre Bücher (das Kataster geht schnell, das Grundbuch dauert)`,
+                  R`<b>Schlussfeststellung</b> durch das ALE: alles berichtigt, gebaut, bezahlt. Die TG wird aufgelöst oder besteht weiter (oder die Gemeinde übernimmt), wenn noch Vermögen oder Schulden da sind`
+                ]}
+              ],
+              tips: [
+                { title: "Plangenehmigung vs. Planfeststellung", body: R`Gibt es Einwendungen? <b>Nein</b> → Plangenehmigung. <b>Ja</b> → Planfeststellung mit Abwägung. Beides macht das ALE.` },
+                { title: "Unterlagen der Teilnehmer", body: R`Eigentümer-, Forderungs-, Abfindungs- und Belastungsnachweis sowie Kontoauszug.` }
+              ],
+              traps: [
+                { title: "Falle: Eigentumswechsel mit Besitzeinweisung", body: R`Die vorläufige Besitzeinweisung (§ 65) gibt nur den <b>Besitz</b>. Das <b>Eigentum</b> wechselt erst mit der Ausführungsanordnung (§ 61).` },
+                { title: "Falle: TG zahlt alles", body: R`Die Verfahrenskosten trägt der Freistaat, nur die Ausführungskosten trägt die TG.` }
+              ],
+              checks: [
+                { type: "mc", q: "Gegen den Wege- und Gewässerplan wurden Einwendungen erhoben. Was erlässt das ALE?", options: ["Plangenehmigung", "Planfeststellungsbescheid", "Ausführungsanordnung", "Schlussfeststellung"], answer: 1, explain: "Bei Einwendungen gibt es eine Planfeststellung, ohne Einwendungen eine Plangenehmigung." },
+                { type: "mc", q: "Wann geht das EIGENTUM an den neuen Grundstücken auf die Teilnehmer über?", options: ["Mit der vorläufigen Besitzeinweisung", "Mit dem Stichtag der Ausführungsanordnung", "Mit der Schlussfeststellung", "Mit der Wertermittlung"], answer: 1, explain: "Ausführungsanordnung (§ 61): Die Abfindung tritt an die Stelle der Einlage (Surrogation)." },
+                { type: "mc", q: "Welche Faktoren der Bodenabtragsgleichung A = R·K·L·S·C·P kann der Landwirt direkt beeinflussen?", options: ["R und S", "C und P", "K und R", "Alle"], answer: 1, explain: "C (Bewirtschaftung) und P (Erosionsschutz) sind beeinflussbar. L nur über die Flurbereinigung." },
+                { type: "mc", q: "Wer trägt die VERFAHRENSKOSTEN (§ 104 FlurbG)?", options: ["Die TG", "Der Freistaat Bayern", "Die Gemeinde", "Jeder Teilnehmer nach Fläche"], answer: 1, explain: "Verfahrenskosten trägt der Freistaat, Ausführungskosten (§ 105) die TG." },
+                { type: "order", q: "Bringe den Verfahrensabschluss in die richtige Reihenfolge:", steps: ["Flurbereinigungsplan bekannt machen + Anhörungstermin", "Plan wird unanfechtbar", "Ausführungsanordnung (§ 61), neuer Rechtszustand", "Berichtigung von Grundbuch und Kataster", "Schlussfeststellung (§ 149)"], explain: "Plan → unanfechtbar → Ausführungsanordnung → Bücher berichtigen → Schlussfeststellung." },
+                { type: "mc", q: "Wie lange haben Teilnehmer nach dem Anhörungstermin Zeit für einen Widerspruch gegen den Flurbereinigungsplan?", options: ["1 Woche", "14 Tage", "1 Monat", "3 Monate"], answer: 1, explain: "Schriftlich innerhalb 14 Tagen nach dem Anhörungstermin." }
+              ],
+              sources: [
+                "GoodNotes: 3. Ländliche Neuordnung.pdf – Kap. 4 Plan nach § 41, Kap. 8 Flurbereinigungsplan, Kap. 9 Abschluss",
+                "GoodNotes: Übungen.pdf – Übungsaufgabe 8 (Poppenlauer, Plan § 41)",
+                "E-Learning Kurs 33000: LN 4. Plan nach § 41, 8. Flurbereinigungsplan und Abschluss"
               ]
             }
           ]
