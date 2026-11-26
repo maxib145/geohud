@@ -383,6 +383,50 @@ C.push({
   ]
 });
 
+C.push({
+  id: "referenz", title: "Referenzwerte aus einer Vorjahres-Ausarbeitung",
+  intro: "Echte Ergebnisse einer Gruppe aus dem WS 2025/26 zeigen, in welcher Größenordnung deine Werte liegen sollten – und wie die Diskussion argumentiert. Alle Zahlen habe ich, wo möglich, mit den Formeln aus dem Skript nachgerechnet.",
+  sources: ["iCloud: Semester_3/Angewandte_Vermessung/Ü1, Ü2, Ü3, Ü5 – Ausarbeitungen Gruppe 2, WS 2025/26 (Namen bewusst weggelassen)"],
+  blocks: [
+    { h3: "Ü1 Präzisionsnivellement (Abschnitt 5–8, Leica DNA03)" },
+    { table: { head: ["Größe", "Wert"], rows: [
+      ["Einstellungen", "RVVR, max. Zielweite 50 m, Zielhöhe 0.5–2.7 m, max. Widerspruch RVVR 0.2 mm, Mittel aus n = 3 (Brücke n = 9)"],
+      ["Ziellinienfehler (Förstner)", "−0.1″ und −4.3″ an zwei Messtagen"],
+      ["Widerspruch hin/rück", "5–6: 0.01 mm · 6–7: 0.04 mm · 7–8: 0.4 mm (Grenze 1.0 / 2.0 mm)"],
+      ["Kilometerfehler (Doppel)", "0.25 mm (über Brücke), 0.22 mm (über Landzunge) – Herstellerangabe DNA03: 0.3 mm"],
+      ["Δh 6–8", "Landzunge 0.472 m, Brücke 0.471 m, Differenz 1.2 mm"]
+    ]}},
+    { callout: "ex", title: "Argumentation 6–8", body: "Über die Landzunge waren die Zielweiten ungleich (77.1 / 49.4 m), über die Brücke gleich, dafür mehr Wechselpunkte und Vibration durch Verkehr. Bei kalibriertem Instrument (Ziellinie) wurde die Landzunge als zuverlässiger und wirtschaftlicher bewertet. Genau diese Abwägung – <i>welcher Fehler wird durch welche Anordnung eliminiert?</i> – erwartet die Diskussion." },
+    { h3: "Ü2 Trigonometrische Höhe (Leica TS15: 0.3 mgon, 1 mm + 1.5 ppm)" },
+    { table: { head: ["Linie", "einseitig hin / rück [m]", "gegenseitig [m]"], rows: [
+      ["1–2", "−17.131 / +17.167 (Δ 36 mm)", "−17.149"],
+      ["2–11", "−74.198 / +74.209 (Δ 11 mm)", "−74.203"],
+      ["1–11", "−91.342 / +91.371 (Δ 29 mm)", "−91.357"],
+      ["1–9", "−91.273 / +91.315 (Δ 43 mm)", "−91.294"]
+    ]}},
+    { steps: { title: "Nachrechnung Linie 2 → 1", task: "$s=325.599$ m, $z_2=96.64055$ gon, $z_1=103.35516$ gon, Höhenanschlüsse $I_2=1.386$ m, $I_1=1.400$ m.", steps: [
+      { t: "Horizontaldistanz", b: R`$d=325.599\sin96.64055=325.146$ m` },
+      { t: "Gegenseitig", b: R`$\Delta h=\tfrac12\cdot325.146(\cot z_2-\cot z_1)+(1.386-1.400)=17.149$ m ✓` },
+      { t: "Einseitig k = 0.13", b: R`$325.146\cot z_2+\frac{325.146^2}{2R}(0.87)+1.386-1.400=17.167$ m ✓ (18 mm daneben)` },
+      { t: "Refraktionskoeffizient", b: R`$k=1-(96.64055+103.35516-200)\frac{\pi}{200}\frac{R}{325.146}=2.3$ – bodennahe Visur im Weinberg, weit weg von 0.13` }
+    ]}},
+    { callout: "merke", body: "Hin/Rück-Differenzen von 1–4 cm bei einseitiger Messung gegenüber Dreiecksschlüssen im mm-Bereich bei gegenseitiger Messung zeigen direkt, warum k = 0.13 für Präzisionshöhen ungeeignet ist." },
+    { h3: "Ü3 Streckenmaßstab (TS15, Standpunkte 101–104)" },
+    { table: { head: ["Variante", "Maßstab Instrument / CAPLAN", "Restklaffen", "Standpunkt-Differenz Instrument–CAPLAN"], rows: [
+      ["1 (M_Geom, Ausgleichung)", "–", "≈ 1 mm", "0 / 1 mm"],
+      ["2 (M_Geom, Helmert, m frei)", "1.000025 / 1.000023", "≤ 1 mm", "1 / 0 mm"],
+      ["3 (ohne M_Geom, Helmert, m frei)", "0.999644 / 0.999644 (−356 ppm)", "≤ 1 mm", "0 / 0 mm"],
+      ["4 (nichts)", "–", "bis 2 cm", "2 / 3 mm"]
+    ]}},
+    { callout: "info", title: "Warum −356 statt −380 ppm?", body: "Am Instrument war eine Atmosphärenkorrektur von −9 ppm (5 °C, 1018 hPa, 88 %) angebracht, und der freie Maßstab enthält zusätzlich Netzspannungen und den Rest von M_Phys. Variante 2 zeigt diesen Rest direkt: +25 ppm." },
+    { callout: "trap", title: "Instrument ≠ CAPLAN bei Variante 1 und 4", body: "Das Tachymeter gewichtet Richtungen und Strecken anders als CAPLAN (σ_s = 1 mm, σ_r = 0.3 mgon). Deshalb unterscheiden sich die Ergebnisse der Ausgleichungsvarianten leicht – in der Ausarbeitung erklären, nicht ignorieren." },
+    { quiz: [
+      { type: "mc", q: "Variante 2 ergibt m = 1.000025. Was steckt darin?", options: ["Reste von M_Phys und Netzspannungen (M_Geom ist schon angebracht)", "Der komplette UTM-Maßstab", "Nur die Erdkrümmung", "Ein Rechenfehler"], answer: 0, explain: "M_Geom ist eingestellt, also bleibt der Rest übrig." },
+      { type: "gap", q: "Refraktionskoeffizient aus $z_A+z_B=199.99571$ gon, $d=325.146$ m (R = 6371 km)?", answer: 2.32, tol: 0.02, explain: "$1-(-0.00429)\\frac{\\pi}{200}\\frac{6371000}{325.146}=2.32$." }
+    ]}
+  ]
+});
+
 CONTENT.av.cheatsheet = {
   lead: "Formeln, Einstellungen und Diskussionspunkte für die fünf Ausarbeitungen – druckbar auf A4.",
   sections: [

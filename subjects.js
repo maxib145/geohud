@@ -2,14 +2,14 @@
    "legacy" = vorläufig aus studyData.js, "todo" = noch leer.
    Neues Fach: Eintrag ergänzen + content/<id>.js anlegen. IDs nie ändern (Lesefortschritt). */
 window.SUBJECTS = {
-  version: "2026-11-26.9",
+  version: "2026-11-26.10",
   groups: [
     { id: "sem3", label: "3. Semester" },
     { id: "nach", label: "Nachholfächer" }
   ],
   list: [
     { id: "agl",       group: "sem3", title: "Ausgleichsrechnung",                 meta: "Modul 6018014 · Prof. Dr.-Ing. M. Müller", file: "content/agl.js", status: "full" },
-    { id: "photo",     group: "sem3", title: "Photogrammetrie und Fernerkundung",  meta: "Modul 6018013", status: "todo" },
+    { id: "photo",     group: "sem3", title: "Photogrammetrie und Fernerkundung",  meta: "Modul 6018013 · Prof. Dr.-Ing. S. Knoblach, E. Heß", file: "content/photo.js", status: "full" },
     { id: "av",        group: "sem3", title: "Angewandte Vermessung",              meta: "Modul 6018015 · Prof. Dr.-Ing. S. Knoblach · Portfolio (5 Ausarbeitungen)", file: "content/av.js", status: "full" },
     { id: "gisdb-anw", group: "sem3", title: "GIS- und Datenbankanwendungen",      meta: "Modul 6018016 · Übungsbenotung", status: "todo" },
     { id: "gisdb",     group: "sem3", title: "Geoinformationssysteme und Datenbanken", meta: "Modul 6018012", status: "todo" },
